@@ -333,12 +333,6 @@ const productCtrl = {
 
 
 
-    if(req.files.length == 0){
-
-        throw new Error("Image ta halnai parxa")
-
-    }
-
 
     const images = await Promise.all(
       req.files?.map(async (file) => {
@@ -356,6 +350,12 @@ const productCtrl = {
 
 
     console.log(name, description, summary, categoryId, brandId);
+
+
+    const category = await Category.findById(categoryId);
+
+
+    const brand = await Brand.findById(brandId);
     
 
 
@@ -382,7 +382,7 @@ const productCtrl = {
 
   
   const updateProduct =  await Product.findByIdAndUpdate(id , {name, summary, description, categoryId, brandId ,
-    images, initialPrice, discountedPrice
+    images, initialPrice, discountedPrice, categoryName:category.name, brandName: brand.name
    });
 
 

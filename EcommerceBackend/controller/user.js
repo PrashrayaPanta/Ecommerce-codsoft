@@ -13,6 +13,9 @@ const userCtrl = {
   register: asyncHandler(async (req, res) => {
 
 
+    console.log("I am inside register controler");
+
+    
       const { username, email, password } = req.body;
 
 
