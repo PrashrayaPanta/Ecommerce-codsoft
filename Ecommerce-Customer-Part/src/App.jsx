@@ -12,17 +12,7 @@ import { Dashboard } from "./pages/Dashboard";
 import Layout from "./components/ui/Layout";
 
 function App() {
-  const [open, setOpened] = useState(false);
 
-  const [openBrandItem, setopenBrandItem] = useState(false);
-
-  const handleClicked = () => {
-    setOpened(!open);
-  };
-
-  const handleClickedForBrandItem = () => {
-    setopenBrandItem(!openBrandItem);
-  };
 
   return (
     <>

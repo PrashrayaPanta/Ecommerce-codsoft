@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import {
   Sheet,
@@ -10,12 +10,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import http from "../../http";
-import { FromStorage } from "../../library";
+import { ClearStorage, FromStorage } from "../../library";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUser } from "../../store";
+
+
+import { setUser, clearUser } from "../../store";
 
 const Layout = () => {
+
+
+  console.log("Layout Component is called ")
   const [open, setOpened] = useState(false);
 
   const dispatch = useDispatch();
@@ -35,9 +40,12 @@ const Layout = () => {
 
   const [loading, setLoading] = useState(false);
 
+
+  const navigate  = useNavigate();
+
   const user = useSelector((state) => state.user.value);
 
-  // console.log(categories, brands);
+  console.log(brands);
 
   const getCategoriesData = async () => {
     try {
@@ -66,7 +74,11 @@ const Layout = () => {
 
       const { data } = await http.get("/api/brands");
 
-      setCategories(data.brands);
+
+      console.log(data);
+      
+
+      setBrands(data?.brands);
 
       //Promise Method
       // http
@@ -83,11 +95,23 @@ const Layout = () => {
 
   useEffect(() => {
     getCategoriesData();
-  }, [categories]);
+  }, []);
 
   useEffect(() => {
     getBrandsData();
-  }, [brands]);
+  }, []);
+
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    ClearStorage("customerPartToken");
+    dispatch(clearUser());
+    navigate("/");
+  };
+
+
+  console.log("This is my brands", brands)
+
 
   const getUserProfile = async () => {
     const token = FromStorage("customerPartToken");
@@ -177,15 +201,14 @@ const Layout = () => {
                       className="flex items-center justify-center"
                     >
                     <i class="fa-solid fa-user-pen me-1"></i>
-                     <span> Dashboard</span>
+                     <span>{user.username}</span>
                     </Link>
                   </li>
                   
-
                   <li className="">
                     <Link
-                      to="/logout"
-                      className=" flex items-center "
+                      onClick={handleLogout}
+                      className=" flex items-center justify-center" 
                     >
                     <i class="fa-solid fa-right-from-bracket me-1"></i>
                     <span>Logout</span>

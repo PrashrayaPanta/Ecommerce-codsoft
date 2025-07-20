@@ -2,9 +2,17 @@ import { Link } from "react-router-dom";
 
 
 const ProductCard = ({product}) => {
+
+
+  console.log(product);
+  
+  console.log(product.images[0].url);
+  
+  
+
   return (
     <Link class="bg-white shadow-md rounded-md text-center p-4" to="/product">
-      <img src={product.image} alt="Sony Alpha DSLR Camera" class="w-full" />
+      <img src={product.images[0]?.url} alt="Sony Alpha DSLR Camera" class="w-full" />
       <h2 class="text-xl font-semibold text-gray-700 mb-2">
         {/* Sony Alpha DSLR Camera */}
         {product.name}
@@ -15,7 +23,7 @@ const ProductCard = ({product}) => {
           <p class="line-through text-gray-400 font-semibold text-lg">
             ${product.initialPrice}
           </p>
-          <p class="  font-bold text-lg ">${product.finalPrice}</p>
+          <p class="font-bold text-lg ">${product.discountedPrice}</p>
         </>
       ) : (
         <p class=" font-bold text-lg mt-5">${product.initialPrice}</p>

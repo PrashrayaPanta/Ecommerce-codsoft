@@ -15,19 +15,16 @@ import Star from "../components/ui/Star";
 
 
 const Product = () => {
-  const [open, setOpened] = useState(false);
+    
 
-  const [openBrandItem, setopenBrandItem] = useState(false);
 
-  const handleClicked = () => {
-    setOpened(!open);
-  };
-
-  const handleClickedForBrandItem = () => {
-    setopenBrandItem(!openBrandItem);
-  };
 
   const [rating, setRating] = useState(0);
+
+
+
+
+
 
   return (
     <div>

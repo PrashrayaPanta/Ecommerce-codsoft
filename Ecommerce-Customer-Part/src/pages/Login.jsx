@@ -35,6 +35,10 @@ import { setUser } from "../store";
 const Login = () => {
 
 
+
+  console.log("I am inside login page")
+
+
   const dispatch = useDispatch();
 
 
