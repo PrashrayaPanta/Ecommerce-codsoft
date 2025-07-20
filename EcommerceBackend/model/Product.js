@@ -20,7 +20,6 @@ const productSchema = new mongoose.Schema({
 
   discountedPrice:{
     type: String,
-    required: true
   },
 
   oldPrice: {

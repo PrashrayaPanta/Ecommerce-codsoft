@@ -34,7 +34,6 @@ export const Create = () => {
       name: Yup.string().required(),
       description: Yup.string().required(),
       initialPrice: Yup.number().required(),
-      discountedPrice: Yup.number().required(),
       categoryId: Yup.string().required("Category Name is required"),
       brandId: Yup.string().required("Brand Name is required"),
       images: Yup.mixed()
@@ -140,7 +139,7 @@ export const Create = () => {
 
                       <div className="mb-2">
                         <Form.Label htmlFor="categoryId">Category</Form.Label>
-                        <svg
+                        {/* <svg
                           stroke="currentColor"
                           fill="none"
                           stroke-width="2"
@@ -155,7 +154,7 @@ export const Create = () => {
                           <path d="M12 6v12"></path>
                           <path d="M17.196 9 6.804 15"></path>
                           <path d="m6.804 9 10.392 6"></path>
-                        </svg>
+                        </svg> */}
 
                         <Form.Select
                           name="categoryId"
@@ -187,7 +186,7 @@ export const Create = () => {
                       </div>
                       <div className="mb-2">
                         <Form.Label htmlFor="brandId">Brand</Form.Label>
-                        <svg
+                        {/* <svg
                           stroke="currentColor"
                           fill="none"
                           stroke-width="2"
@@ -202,7 +201,7 @@ export const Create = () => {
                           <path d="M12 6v12"></path>
                           <path d="M17.196 9 6.804 15"></path>
                           <path d="m6.804 9 10.392 6"></path>
-                        </svg>
+                        </svg> */}
                         <Form.Select
                           name="brandId"
                           id="brandId"

@@ -48,9 +48,7 @@ export const Edit = () => {
     validationSchema: Yup.object({
       name: Yup.string().required(),
       description: Yup.string().required(),
-
       initialPrice: Yup.number().required(),
-      discountedPrice: Yup.number().required(),
       categoryId: Yup.string().required("Category Name is required"),
       brandId: Yup.string().required("Brand Name is required"),
       images: Yup.mixed()

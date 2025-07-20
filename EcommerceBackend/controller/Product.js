@@ -34,7 +34,7 @@ const productCtrl = {
 
     const { name, description, categoryId, initialPrice, colors, sizes,   brandId, summary, discountedPrice } = req.body;
 
-    if (!name || !description || !categoryId || !initialPrice || !discountedPrice) {
+    if (!name || !description || !categoryId || !initialPrice) {
       return res.status(400).json({ message: "Some fields are missing in the request body" });
     }
 

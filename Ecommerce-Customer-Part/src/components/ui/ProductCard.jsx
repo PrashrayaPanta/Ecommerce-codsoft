@@ -18,7 +18,7 @@ const ProductCard = ({product}) => {
         {product.name}
       </h2>
 
-      {product.discountedPrice > 0 ? (
+      {product?.discountedPrice > 0 ? (
         <>
           <p class="line-through text-gray-400 font-semibold text-lg">
             ${product.initialPrice}
