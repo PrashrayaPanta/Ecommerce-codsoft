@@ -33,6 +33,11 @@ const Product = () => {
 
   const [loading, setLoading] = useState(false);
 
+
+  const [avgrating, setavgRating] = useState(0);
+
+  const [ratestar, setRateStar] = useState({ 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 });
+
   useEffect(() => {
     const productDetails = async () => {
       const { data } = await http.get(`/api/products/${id}`);
@@ -86,6 +91,32 @@ const Product = () => {
     PostReviewData();
   };
 
+
+  useEffect(() => {
+    let total = 0;
+
+    let stars = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+
+    // console.log(product.reviews);
+
+    if (product.reviews?.length > 0) {
+      for (let review of product.reviews) {
+        total = total + review.rating;
+        stars[review.rating] += 1;
+      }
+
+      //calualting the percentage for each star rating
+
+      for (let k in stars) {
+        stars[k] = (stars[k] / product.reviews?.length) * 100;
+      }
+      setavgRating(total / product?.reviews.length);
+
+      setRateStar(stars);
+    } else {
+      setavgRating(0);
+    }
+  }, [product]);
   console.log(product);
 
   return (
@@ -330,21 +361,38 @@ const Product = () => {
 
               <div class="flex items-center mb-8">
                 <div class="text-center mr-6">
-                  <div class="text-4xl font-bold text-gray-900">4.1</div>
-                  <div class="text-gray-600">of 100 reviews</div>
+                  <div class="text-4xl font-bold text-gray-900">{avgrating.toFixed(2)}</div>
+                  <div class="text-gray-600">{product?.reviews?.length || 0} </div>
                 </div>
                 <div class="flex-1">
-                  <div class="flex items-center mb-2">
-                    <span class="w-8 text-gray-600">5★</span>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
-                      <div
-                        class="bg-gray-800 h-2.5 rounded-full"
-                        style={{ width: "45%" }}
-                      ></div>
-                    </div>
-                    <span class="w-8 text-gray-600">45%</span>
-                  </div>
-                  <div class="flex items-center mb-2">
+
+                  {
+                      [5, 4, 3, 2, 1].map((k, index) =>(
+
+                        <div class="flex items-center mb-2 bg-red-500">
+                        <span class="w-8 text-gray-600">5★</span>
+                        <div class="w-full bg-blue-200 rounded-full h-2.5 mx-2">
+                          <div
+                            class="bg-gray-800 h-2.5 rounded-full"
+                            style={{ width: ratestar[k] + "%" }}
+                            aria-valuenow={ratestar[k] + "%"}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                          >
+                              {ratestar[k].toFixed(1) + "%"}
+                          </div>
+                        </div>
+                        <span class="w-8 text-gray-600">
+                          {k}
+                        </span>
+                      </div>
+
+                      ))
+
+
+                  }
+                 
+                  {/* <div class="flex items-center mb-2">
                     <span class="w-8 text-gray-600">4★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
                       <div
@@ -353,8 +401,8 @@ const Product = () => {
                       ></div>
                     </div>
                     <span class="w-8 text-gray-600">30%</span>
-                  </div>
-                  <div class="flex items-center mb-2">
+                  </div> */}
+                  {/* <div class="flex items-center mb-2">
                     <span class="w-8 text-gray-600">3★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
                       <div
@@ -373,8 +421,8 @@ const Product = () => {
                       ></div>
                     </div>
                     <span class="w-8 text-gray-600">7%</span>
-                  </div>
-                  <div class="flex items-center">
+                  </div> */}
+                  {/* <div class="flex items-center">
                     <span class="w-8 text-gray-600">1★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
                       <div
@@ -383,7 +431,7 @@ const Product = () => {
                       ></div>
                     </div>
                     <span class="w-8 text-gray-600">3%</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -431,26 +479,32 @@ const Product = () => {
               <div class="h-px bg-gray-200 my-6"></div>
 
               <div class="space-y-4">
-                {product?.reviews?.map((review) => (
-                  <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="flex justify-between mb-2">
-                      <span class="font-semibold">
-                        {review.DoneBy.username}
-                      </span>
-                      <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
+                {product.reviews?.length > 0 ? (
+                  <>
+                    {product?.reviews?.map((review) => (
+                      <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="flex justify-between mb-2">
+                          <span class="font-semibold">
+                            {review?.DoneBy?.username}
+                          </span>
+                          <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                          </div>
+                        </div>
+                        <p class="text-gray-700 mb-3">{review?.comment}</p>
+                        <p class="text-gray-500 text-sm">
+                          <i class="fas fa-clock mr-1"></i>
+                        </p>
                       </div>
-                    </div>
-                    <p class="text-gray-700 mb-3">{review.comment}</p>
-                    <p class="text-gray-500 text-sm">
-                      <i class="fas fa-clock mr-1"></i>
-                    </p>
-                  </div>
-                ))}
+                    ))}
+                  </>
+                ) : (
+                  <h1>No Review</h1>
+                )}
               </div>
             </div>
           </div>

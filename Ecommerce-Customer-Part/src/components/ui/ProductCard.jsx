@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 import { imgURL } from "../../library";
 
 
+
+
+
 const ProductCard = ({product}) => {
 
 
   console.log(product);
   
   console.log(product.images[0].url);
-  
   
 
   return (

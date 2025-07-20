@@ -12,7 +12,7 @@ import LoadingComponent from "../components/ui/LoadingComponent";
 const Home = () => {
   const [Latestproducts, setLatestProducts] = useState([]);
 
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
 
   console.log("I am home page");
 
@@ -69,7 +69,7 @@ const Home = () => {
   // console.log(products);
 
   return (
-    <div>
+    <div className="">
       {/* Use the Swiper component */}
       <SwiperComponent />
 
@@ -77,17 +77,21 @@ const Home = () => {
 
       {/* <SwiperComponentForLatestProducts/> */}
 
-
-
       {Loading ? (
         <LoadingComponent />
       ) : (
-        <div className="grid  grid-cols-2 md:grid-cols-4 gap-6 p-4">
+        <div className="grid  grid-cols-2 md:grid-cols-4 gap-6 p-4 bg-blue-400">
           {/* <!-- Sony Camera Card --> */}
 
-          {Latestproducts.map((product, index) => (
-            <ProductCard product={product} key={index} />
-          ))}
+          {Latestproducts.length > 0 ? (
+            <>
+              {Latestproducts.map((product, index) => (
+                <ProductCard product={product} key={index} />
+              ))}
+            </>
+          ) : (
+            <h1>Data Not Found</h1>
+          )}
 
           {/* <div className="bg-white shadow-md rounded-md text-center p-4">
           <img
@@ -223,10 +227,6 @@ const Home = () => {
         </div> */}
         </div>
       )}
-
-
-
-    
     </div>
   );
 };
