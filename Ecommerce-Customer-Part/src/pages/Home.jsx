@@ -48,7 +48,7 @@ const Home = () => {
     const getLatestProducts = async () => {
       try {
         setLoading(true);
-        const { data } = await http.get("/api/products/Latestproducts");
+        const { data } = await http.get("/api/products/latestproducts");
 
         console.log(data.products);
 

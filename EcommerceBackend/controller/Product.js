@@ -220,7 +220,7 @@ const productCtrl = {
     
     const { id } = req.params;
 
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate({path:"reviews.DoneBy",select:"username email" } );
 
     console.log(product);
     
@@ -419,6 +419,9 @@ const productCtrl = {
 
   Latestproducts: asyncHandler(async (req, res) => {
 
+
+    console.log("I am inside latest products")
+
     console.log("I am inside the latest products")
     const products = await Product.find()
       .limit(2)
@@ -528,7 +531,7 @@ const productCtrl = {
 
     // console.log(comment, rating);
     
-    product?.reviews.push({comment, rating})
+    product?.reviews.push({comment, rating, DoneBy: req.user_id })
     await product?.save();
     res.json({message:"review Created Succesfully", product})
   }),
@@ -540,7 +543,7 @@ const productCtrl = {
 
 
 
-    const productReviews = await Product.findById(id);
+    const productReviews = await Product.findById(id).populate("reviews.DoneBy");
 
 
     res.json({productReviews})

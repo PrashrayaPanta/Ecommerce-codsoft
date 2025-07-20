@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { imgURL } from "../../library";
 
 
 const ProductCard = ({product}) => {
@@ -11,8 +12,8 @@ const ProductCard = ({product}) => {
   
 
   return (
-    <Link class="bg-white shadow-md rounded-md text-center p-4" to="/product">
-      <img src={product.images[0]?.url} alt="Sony Alpha DSLR Camera" class="w-full" />
+    <Link class="bg-white shadow-md rounded-md text-center p-4" to={`/product/${product._id}`}>
+      <img src={imgURL(product.images[0]?.public_id)} alt="Sony Alpha DSLR Camera" class="w-full" />
       <h2 class="text-xl font-semibold text-gray-700 mb-2">
         {/* Sony Alpha DSLR Camera */}
         {product.name}

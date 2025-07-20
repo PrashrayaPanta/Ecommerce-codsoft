@@ -53,6 +53,8 @@ const getImageDetailsHandlerForBrand = async (req, res) => {
 
 const getImageDetailsHandlerForProduct = async (req, res) => {
 
+  
+
   try{
   const { filename, nodejsProductImages } = req.params;
 

@@ -28,9 +28,14 @@ function App() {
 
             <Route path="cart" element={<Cart />} />
 
-            <Route path="product" element={<Product />} />
+            {/* <Route path="product" element={<Product />} /> */}
 
             <Route path="dashboard" element={<Dashboard />} />
+
+
+            <Route path="product/:id" element={<Product/>} />
+
+
           </Route>
         </Routes>
       </BrowserRouter>

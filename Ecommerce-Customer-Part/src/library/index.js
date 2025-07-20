@@ -40,8 +40,16 @@ export const ClearStorage = (key) => {
 
 export const dtFormat = (dt, format = "lll") => dayjs(dt).format(format);
 
-export const imgURL = (filename) => {
+export const imgURL = (public_id) => {
+
+
+  console.log(public_id);
+
+
+  // console.log(public_id)
+
+  
   // console.log(`import.meta.env.VITE_API_URL/image/${filename}`);
 
-  return `${import.meta.env.VITE_API_URL}/image/${filename}`;
+  return `${import.meta.env.VITE_API_URL}/api/${public_id}`;
 };

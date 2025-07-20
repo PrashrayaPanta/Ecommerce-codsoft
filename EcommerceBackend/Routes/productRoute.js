@@ -67,9 +67,28 @@ productRoute.post(
 
 
 
+
+
 productRoute.delete("/admin/products/:id/:nodejsProductImages/:filename", 
   deleteImageHandlerForProduct
 );
+
+
+
+
+
+productRoute.get("/products/search", productCtrl.searchProduct)
+
+productRoute.get("/products/Latestproducts", productCtrl.Latestproducts);
+
+
+productRoute.get("/products/lowtohigh", productCtrl.lowtoHighPriceProduct);
+
+
+productRoute.get("/products/:id", productCtrl.getCertainproduct);
+
+
+
 
 
 // productRoute.get("/frontend/latestproducts", )
@@ -91,9 +110,15 @@ productRoute.put("/admin/products/:id", isAuthenticated, isAdmin, upload.array("
 productRoute.get("/admin/products/:id", isAuthenticated, isAdmin, productCtrl.getCertainproduct);
 
 
-productRoute.get("/admin/:nodejsProductImages/:filename", 
+productRoute.get("/admin/products", isAuthenticated, isAdmin, productCtrl.getAllproduct);
+
+
+productRoute.get("/:nodejsProductImages/:filename", 
   getImageDetailsHandlerForProduct
 );
+
+
+
 
 
 productRoute.delete("/admin/products/:id", isAuthenticated, isAdmin, productCtrl.deleteproduct);
@@ -135,23 +160,19 @@ productRoute.get("/products/:id/reviews", isAuthenticated, productCtrl.getCertai
 
 
 
-productRoute.get("/admin/products", isAuthenticated, isAdmin, productCtrl.getAllproduct);
-
-
-productRoute.get("/products/Latestproducts", productCtrl.Latestproducts);
-
-
-productRoute.get("/products/search", productCtrl.searchProduct)
-
-
-productRoute.get("/products/lowtohigh", productCtrl.lowtoHighPriceProduct);
-
-
-productRoute.get("/products/:id", productCtrl.getCertainproduct);
 
 
 
-productRoute.get("/sub-categories/:id/products", productCtrl.getAllProductsBySubCategoryId)
+
+
+
+
+
+// productRoute.get("/products", productCtrl.getAllproduct);
+
+
+
+// productRoute.get("/sub-categories/:id/products", productCtrl.getAllProductsBySubCategoryId)
 
 
 // productRoute.get("/products/categories/:id/products", productCtrl.getAllProductByCategoryId)

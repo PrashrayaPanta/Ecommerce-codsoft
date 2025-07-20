@@ -13,14 +13,10 @@ import http from "../../http";
 import { ClearStorage, FromStorage } from "../../library";
 import { useSelector, useDispatch } from "react-redux";
 
-
-
 import { setUser, clearUser } from "../../store";
 
 const Layout = () => {
-
-
-  console.log("Layout Component is called ")
+  console.log("Layout Component is called ");
   const [open, setOpened] = useState(false);
 
   const dispatch = useDispatch();
@@ -40,8 +36,7 @@ const Layout = () => {
 
   const [loading, setLoading] = useState(false);
 
-
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.value);
 
@@ -74,9 +69,7 @@ const Layout = () => {
 
       const { data } = await http.get("/api/brands");
 
-
       console.log(data);
-      
 
       setBrands(data?.brands);
 
@@ -101,7 +94,6 @@ const Layout = () => {
     getBrandsData();
   }, []);
 
-
   const handleLogout = (e) => {
     e.preventDefault();
     ClearStorage("customerPartToken");
@@ -109,9 +101,7 @@ const Layout = () => {
     navigate("/");
   };
 
-
-  console.log("This is my brands", brands)
-
+  console.log("This is my brands", brands);
 
   const getUserProfile = async () => {
     const token = FromStorage("customerPartToken");
@@ -200,18 +190,18 @@ const Layout = () => {
                       to="/dashboard"
                       className="flex items-center justify-center"
                     >
-                    <i class="fa-solid fa-user-pen me-1"></i>
-                     <span>{user.username}</span>
+                      <i class="fa-solid fa-user-pen me-1"></i>
+                      <span>{user.username}</span>
                     </Link>
                   </li>
-                  
+
                   <li className="">
                     <Link
                       onClick={handleLogout}
-                      className=" flex items-center justify-center" 
+                      className=" flex items-center justify-center"
                     >
-                    <i class="fa-solid fa-right-from-bracket me-1"></i>
-                    <span>Logout</span>
+                      <i class="fa-solid fa-right-from-bracket me-1"></i>
+                      <span>Logout</span>
                     </Link>
                   </li>
                 </>

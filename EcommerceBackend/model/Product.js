@@ -124,6 +124,11 @@ const productSchema = new mongoose.Schema({
         min: 1,
         max: 5, 
       },
+
+       DoneBy:{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User", // Reference to Category model
+       }
     },
   ],
 
