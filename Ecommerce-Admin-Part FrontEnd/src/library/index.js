@@ -64,5 +64,5 @@ export const imgURLForProduct = (public_id) => {
 
   // console.log(`${import.meta.VITE_API_URL}`)
 
-  return `${import.meta.env.VITE_API_URL}/api/admin/${public_id}`;
+  return `${import.meta.env.VITE_API_URL}/api/${public_id}`;
 };

@@ -62,15 +62,8 @@ const upload = multer({
 brandRoute.post("/admin/brands", isAuthenticated, isAdmin, upload.single("image"),  brandCtrl.createBrand);
 
 
-brandRoute.get("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.GetCertainBrand)
 
-
-
-brandRoute.delete("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.deleteCertainBrand);
-
-
-brandRoute.put("/admin/brands/:id", isAuthenticated , isAdmin, upload.single("image"), brandCtrl.EditCertainBrand);
-
+brandRoute.get("/admin/brands",  brandCtrl.getAllBrand);
 
 
 
@@ -87,7 +80,16 @@ brandRoute.get("/brands/:nodejsBrandImage/:filename",
 );
 
 
-brandRoute.get("/admin/brands", isAuthenticated, isAdmin,   brandCtrl.getAllBrand);
+brandRoute.get("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.GetCertainBrand)
+
+
+
+brandRoute.delete("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.deleteCertainBrand);
+
+
+brandRoute.put("/admin/brands/:id", isAuthenticated , isAdmin, upload.single("image"), brandCtrl.EditCertainBrand);
+
+
 
 
 
@@ -101,13 +103,6 @@ brandRoute.get("/brands", brandCtrl.getAllBrand);
 brandRoute.get("/brands/:id",  brandCtrl.GetCertainBrand);
 
 productRoute.get("/brands/:id/products", productCtrl. getAllProductByBrandId)
-
-
-
-
-
-
-
 
 
 

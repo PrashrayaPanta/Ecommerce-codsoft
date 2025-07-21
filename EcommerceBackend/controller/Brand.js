@@ -95,9 +95,15 @@ const brandCtrl = {
   getAllBrand: asyncHandler(async(req, res) =>{
 
 
+    console.log("Hello I am get Al Brand functionality");
+
+
+    console.log("Hello K xa I am inside get all brand")
+
+
     const brands = await Brand.find();
 
-
+    
 
     res.json({  brands });
 

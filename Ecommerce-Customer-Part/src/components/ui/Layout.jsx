@@ -36,11 +36,26 @@ const Layout = () => {
 
   const [loading, setLoading] = useState(false);
 
+
+
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.value);
 
-  console.log(brands);
+  const cart = useSelector((state)=>state.cart.value);
+
+
+
+  const [totalPrice, setTotalPrice] = useState();
+
+
+  const [totalQty, setTotalQty] = useState();
+
+
+  console.log(cart);
+  
+
+  // console.log(brands);
 
   const getCategoriesData = async () => {
     try {
@@ -93,6 +108,27 @@ const Layout = () => {
   useEffect(() => {
     getBrandsData();
   }, []);
+
+  useEffect(() => {
+    if (cart) {
+      let tp = 0;
+      let tq = 0;
+      for (let key in cart) {
+        tp += cart[key].total;
+        tq += cart[key].qty;
+      }
+
+      setTotalPrice(tp);
+      setTotalQty(tq);
+    } else {
+      setTotalPrice(0);
+      setTotalQty(0);
+    }
+  }, [cart]);
+
+
+  
+
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -147,6 +183,8 @@ const Layout = () => {
       <header>
         {/* <!-- Top Nav Bar --> */}
         <div className="sm:flex sm:justify-between sm:items-center sm:px-2 text-white bg-black p-2">
+
+          {/* Phone no and Email Section */}
           <nav>
             <ul className="sm:flex gap-4">
               <li className="">
@@ -181,6 +219,7 @@ const Layout = () => {
               </li>
             </ul>
           </nav>
+          {/* User Section */}
           <nav>
             <ul className="sm:flex sm:gap-2">
               {user ? (
@@ -422,7 +461,7 @@ const Layout = () => {
                 <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64l0 48-128 0 0-48zm-48 48l-64 0c-26.5 0-48 21.5-48 48L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-208c0-26.5-21.5-48-48-48l-64 0 0-48C336 50.1 285.9 0 224 0S112 50.1 112 112l0 48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
               </svg>
 
-              <span className="font-semibold">2</span>
+              <span className="font-semibold">{totalQty}</span>
             </Link>
 
             <a className="flex items-center gap-1">
@@ -435,7 +474,7 @@ const Layout = () => {
               >
                 <path d="M0 112.5L0 422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4l0-309.9c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64l-64 0 0-64zm64-208c0 35.3-28.7 64-64 64l0-64 64 0zM512 304l0 64-64 0c0-35.3 28.7-64 64-64zM448 96l64 0 0 64c-35.3 0-64-28.7-64-64z" />
               </svg>
-              <span className="font-semibold">$4,000</span>
+              <span className="font-semibold">{totalPrice}</span>
             </a>
           </div>
         </div>

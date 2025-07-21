@@ -85,7 +85,7 @@ export const Create = () => {
       .get("/api/admin/categories")
       .then(({ data }) => {
         setCategories(data.Categories);
-        return http.get("/api/admin/brands");
+        return http.get("/api/brands");
       })
       .then(({ data }) => setBrands(data.brands))
       .catch()

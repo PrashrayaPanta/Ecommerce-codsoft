@@ -44,12 +44,11 @@ mongoose
   .then(() => console.log("DB connected succesfully"))
   .catch((error) => console.log(error));
 
-
 //!Middlewares
 
 app.use(express.json());
 
- //passing incoming json data from the client
+//passing incoming json data from the client
 
 //!Routes
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Import the Swiper component
 // import SwiperComponentForLatestProducts from "../components/ui/swiper1";
@@ -10,6 +10,14 @@ import http from "../http";
 import LoadingComponent from "../components/ui/LoadingComponent";
 
 const Home = () => {
+
+
+  const location = useLocation();
+
+  console.log(location);
+
+
+  
   const [Latestproducts, setLatestProducts] = useState([]);
 
   const [Loading, setLoading] = useState(false);
@@ -86,7 +94,7 @@ const Home = () => {
           {Latestproducts.length > 0 ? (
             <>
               {Latestproducts.map((product, index) => (
-                <ProductCard product={product} key={index} />
+                <ProductCard product={product} key={index} location={location} />
               ))}
             </>
           ) : (

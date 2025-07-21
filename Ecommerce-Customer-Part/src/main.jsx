@@ -12,11 +12,12 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./store";
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
+
+  <>
     <Provider store={store}>
       <App />
     </Provider>
-
     <ToastContainer
       position="top-right"
       autoClose={5000}
@@ -30,5 +31,7 @@ createRoot(document.getElementById("root")).render(
       theme="colored"
       transition:Bounce
     />
-  </StrictMode>
+  </>
+
+  // </StrictMode>
 );

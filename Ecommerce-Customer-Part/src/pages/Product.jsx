@@ -8,31 +8,38 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Star from "../components/ui/Star";
 import http from "../http";
 import { FromStorage, imgURL } from "../library";
 import { useSelector } from "react-redux";
+import CartBtn from "../components/ui/CartBtn";
 
 const Product = () => {
+  const location = useLocation();
+
+  console.log(location.pathname);
+
+  const [quantity, setQuantity] = useState(1);
+
+
+
+  console.log(typeof quantity);
+  
+
+  // console.log(qty);
+
   const token = FromStorage("customerPartToken");
 
   const { id } = useParams();
 
-  console.log(id);
-
   const [product, setProduct] = useState({});
-
-  //   const [reviews, setReviews] = useState([]);
-
-  //  console.log(product.images[0].public_id);
 
   const [rating, setRating] = useState(0);
 
   const [comment, setComment] = useState("");
 
   const [loading, setLoading] = useState(false);
-
 
   const [avgrating, setavgRating] = useState(0);
 
@@ -90,7 +97,6 @@ const Product = () => {
 
     PostReviewData();
   };
-
 
   useEffect(() => {
     let total = 0;
@@ -166,7 +172,7 @@ const Product = () => {
 
             <div class="lg:w-5/12">
               <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                Area 51M Gaming Laptop - Welcome to A New ERA
+                {product.name}
               </h1>
               <p class="text-gray-600 mb-4">
                 By{" "}
@@ -225,32 +231,22 @@ const Product = () => {
                 <div class="mb-6">
                   <label class="block text-gray-700 mb-2">Quantity</label>
                   <div class="flex border border-gray-300 rounded-lg overflow-hidden">
-                    <button
-                      class="px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      onclick="decrementQty()"
-                    >
-                      -
-                    </button>
                     <input
                       type="number"
                       id="qty"
                       min="1"
-                      value="1"
+                      value={parseInt(quantity)}
                       class="w-full px-3 py-2 text-center border-0 focus:ring-0"
+                      onChange={({ target }) => setQuantity(target.value)}
                     />
-                    <button
-                      class="px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      onclick="incrementQty()"
-                    >
-                      +
-                    </button>
                   </div>
                 </div>
 
                 <div class="space-y-3">
-                  <button class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
+                  {/* <button class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
                     <i class="fas fa-cart-plus mr-2"></i> Add to cart
-                  </button>
+                  </button> */}
+                  <CartBtn product={product} location={location} quantity={quantity} />
                   <button class="w-full border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition flex items-center justify-center">
                     <i class="fas fa-heart mr-2 text-red-500"></i> Add to
                     wishlist
@@ -261,6 +257,7 @@ const Product = () => {
           </div>
         </div>
 
+        {/* Details Section */}
         <div class="flex flex-col lg:flex-row gap-8 mb-8">
           <div class="lg:w-7/12 bg-white rounded-xl shadow-lg p-6">
             <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b-2 border-alien-green pb-2">
@@ -361,12 +358,15 @@ const Product = () => {
 
               <div class="flex items-center mb-8">
                 <div class="text-center mr-6">
-                  <div class="text-4xl font-bold text-gray-900">{avgrating.toFixed(2)}</div>
-                  <div class="text-gray-600">{product?.reviews?.length || 0} </div>
+                  <div class="text-4xl font-bold text-gray-900">
+                    {avgrating.toFixed(2)}
+                  </div>
+                  <div class="text-gray-600">
+                    {product?.reviews?.length || 0}{" "}
+                  </div>
                 </div>
                 <div class="flex-1">
-
-                  {
+                  {/* {
                       [5, 4, 3, 2, 1].map((k, index) =>(
 
                         <div class="flex items-center mb-2 bg-red-500">
@@ -390,8 +390,28 @@ const Product = () => {
                       ))
 
 
-                  }
-                 
+                  } */}
+
+                  {[5, 4, 3, 2, 1].map((k, index) => (
+                    <div class="flex items-center mb-2">
+                      <span class="w-8 text-gray-600">{k}★</span>
+                      <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
+                        <div
+                          class="bg-gray-800 h-2.5 rounded-full"
+                          // style={{ width: "40%" }}
+                          // style={{width:"40%"}}
+
+                          style={{ width: ratestar[k] + "%" }}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <span class="w-8 text-gray-600">
+                        {ratestar[k].toFixed(1) + "%"}
+                      </span>
+                    </div>
+                  ))}
+
                   {/* <div class="flex items-center mb-2">
                     <span class="w-8 text-gray-600">4★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
@@ -401,8 +421,8 @@ const Product = () => {
                       ></div>
                     </div>
                     <span class="w-8 text-gray-600">30%</span>
-                  </div> */}
-                  {/* <div class="flex items-center mb-2">
+                  </div>
+                  <div class="flex items-center mb-2">
                     <span class="w-8 text-gray-600">3★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
                       <div
@@ -421,8 +441,8 @@ const Product = () => {
                       ></div>
                     </div>
                     <span class="w-8 text-gray-600">7%</span>
-                  </div> */}
-                  {/* <div class="flex items-center">
+                  </div>
+                  <div class="flex items-center">
                     <span class="w-8 text-gray-600">1★</span>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mx-2">
                       <div
@@ -510,6 +530,8 @@ const Product = () => {
           </div>
         </div>
 
+        {/* Similar Products Section */}
+
         <div class="bg-white rounded-xl shadow-lg p-6">
           <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">
             Similar Products
@@ -526,7 +548,7 @@ const Product = () => {
                   <span class="text-gray-500 line-through">$500</span>
                   <span class="text-xl font-bold text-gray-900">$450</span>
                 </div>
-                <button class="w-full bg-black text-white py-2 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
+                <button class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
                   <i class="fas fa-cart-plus mr-2"></i> Add to cart
                 </button>
               </div>
@@ -572,7 +594,7 @@ const Product = () => {
                 <div class="mb-4">
                   <span class="text-xl font-bold text-gray-900">$4,500</span>
                 </div>
-                <button class="w-full bg-black text-white py-2 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
+                <button class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
                   <i class="fas fa-cart-plus mr-2"></i> Add to cart
                 </button>
               </div>
