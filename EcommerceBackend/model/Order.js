@@ -20,22 +20,18 @@ const orderSchema = new mongoose.Schema(
           required: true,
           min: 1,
         },
-        priceAtPurchase: {
-          type: Number, // Store the price of the product at the time of purchase
-          required: true,
-        },
       },
     ],
 
-    totalQuantity: {
-      type: Number,
-      required: true,
-    },
+    // totalQuantity: {
+    //   type: Number,
+    //   required: true,
+    // },
 
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
+    // totalPrice: {
+    //   type: Number,
+    //   required: true,
+    // },
 
     status: {
       type: String,

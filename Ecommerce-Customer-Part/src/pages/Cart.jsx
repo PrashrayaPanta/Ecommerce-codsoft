@@ -10,11 +10,17 @@ import {
 } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { imgURL } from "../library";
+import { FromStorage, imgURL } from "../library";
 import { setCart , clearCart} from "../store";
+import http from "../http";
+
+
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart.value);
+
+
+  const token = FromStorage("customerPartToken");
 
   const navigate = useNavigate();
 
@@ -23,6 +29,9 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState();
 
   const [totalQty, setTotalQty] = useState();
+
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (cart) {
@@ -77,6 +86,43 @@ const Cart = () => {
       dispatch(clearCart());
     }
   };
+
+
+
+  const handleCheckout = () => {
+    // console.log("Hello");
+
+    setLoading(true);
+
+    let data = [];
+    for (let k in cart) {
+      data.push({
+        product_id: k,
+        quantity: cart[k].qty,
+      });
+    }
+
+    http
+      .post("/api/orders", data, {
+
+        headers:{
+
+          Authorization: `Bearer ${token}`
+
+
+        }
+
+
+      })
+      .then(() => {
+        dispatch(clearCart());
+        navigate("/");
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  };
+
+
 
 
   return (
@@ -256,7 +302,7 @@ const Cart = () => {
                     <i className="fas fa-sync-alt mr-2"></i> Clear Cart Items
                   </button>
                   {/* {Proccedd to checkout} */}
-                  <button className="px-5 py-2.5   hover:bg-red-500  rounded-lg  flex items-center">
+                  <button className="px-5 py-2.5   hover:bg-red-500  rounded-lg  flex items-center" onClick={handleCheckout}>
                     <i className="fas fa-shopping-cart mr-2"></i> Proceed to
                     Checkout
                   </button>
