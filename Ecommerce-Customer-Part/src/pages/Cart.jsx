@@ -11,10 +11,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { imgURL } from "../library";
-import { setCart } from "../store";
-
-
-
+import { setCart , clearCart} from "../store";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart.value);
@@ -26,8 +23,6 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState();
 
   const [totalQty, setTotalQty] = useState();
-
-
 
   useEffect(() => {
     if (cart) {
@@ -57,6 +52,32 @@ const Cart = () => {
     };
     dispatch(setCart(temp));
   };
+
+
+
+  const handleDeleteCartItem = id => {
+    // console.log(id);
+
+    // console.log("clicked");
+
+    let temp = {};
+
+    for (let k in cart) {
+      if (k != id) {
+        temp = {
+          ...temp,
+          [k]: cart[k],
+        };
+      }
+    }
+
+    if (Object.values(temp).length > 0) {
+      dispatch(setCart(temp));
+    } else {
+      dispatch(clearCart());
+    }
+  };
+
 
   return (
     <div>
@@ -94,8 +115,11 @@ const Cart = () => {
                     </thead>
 
                     {Object.values(cart).map((item) => (
-                      <tbody className="divide-y divide-gray-200" >
-                        <tr className="transition-colors duration-150" key={item.product_id}>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr
+                          className="transition-colors duration-150"
+                          key={item.product_id}
+                        >
                           <td className="py-4 px-4">
                             <div className="flex items-center">
                               <img
@@ -104,7 +128,7 @@ const Cart = () => {
                               />
 
                               <span className="font-medium text-gray-800 w-max">
-                                  {item.product.name}
+                                {item.product.name}
                               </span>
                             </div>
                           </td>
@@ -116,14 +140,24 @@ const Cart = () => {
                               type="number"
                               value={item.qty}
                               className="w-20 border border-gray-300 rounded-lg py-2 px-3 text-center focus:ring-primary focus:border-primary"
-                              onChange={({target}) => handleUpdateCartQty(item.product._id, parseInt(target.value))}
+                              onChange={({ target }) =>
+                                handleUpdateCartQty(
+                                  item.product._id,
+                                  parseInt(target.value)
+                                )
+                              }
                             />
                           </td>
                           <td className="py-4 px-4 font-medium text-gray-800">
-                              {item.total}
+                            {item.total}
                           </td>
                           <td className="py-4 px-4">
-                            <button className="text-danger hover:text-red-700 transition-colors">
+                            <button
+                              className="text-danger hover:text-red-700 transition-colors"
+                              onClick={() =>
+                                handleDeleteCartItem(item.product._id)
+                              }
+                            >
                               <i className="fas fa-times text-xl"></i>
                             </button>
                           </td>
