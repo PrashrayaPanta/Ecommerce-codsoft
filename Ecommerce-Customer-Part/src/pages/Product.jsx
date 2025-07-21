@@ -23,6 +23,8 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
 
 
+  console.log(quantity);
+  
 
   console.log(typeof quantity);
   
@@ -233,11 +235,9 @@ const Product = () => {
                   <div class="flex border border-gray-300 rounded-lg overflow-hidden">
                     <input
                       type="number"
-                      id="qty"
-                      min="1"
-                      value={parseInt(quantity)}
+                      value={quantity}
                       class="w-full px-3 py-2 text-center border-0 focus:ring-0"
-                      onChange={({ target }) => setQuantity(target.value)}
+                      onChange={({ target }) => setQuantity(parseInt((target.value)))}
                     />
                   </div>
                 </div>

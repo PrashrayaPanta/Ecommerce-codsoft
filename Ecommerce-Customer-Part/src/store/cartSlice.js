@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ToStorage, FromStorage } from "../library";
 
-const cart = FromStorage("r130cart");
+// const cart = FromStorage("r130cart");
 
 // console.log(cart);
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    value: cart ? JSON.parse(cart) : null
-    // value: null,
+    // value: cart ? JSON.parse(cart) : null
+    value: null,
   },
 
   reducers: {
@@ -17,12 +17,13 @@ const cartSlice = createSlice({
       state.value = action.payload;
 
 
-
+      console.log(action.payload);
+      
       // console.log(typeof action.payload);
       
 
 
-      ToStorage("r130cart", JSON.stringify(action.payload), true);
+      ToStorage("cartItems", JSON.stringify(action.payload), true);
 
 
 

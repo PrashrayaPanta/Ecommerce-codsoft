@@ -128,8 +128,6 @@ const Layout = () => {
 
 
   
-
-
   const handleLogout = (e) => {
     e.preventDefault();
     ClearStorage("customerPartToken");
