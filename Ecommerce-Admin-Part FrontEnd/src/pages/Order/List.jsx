@@ -33,6 +33,42 @@ const List = () => {
       .finally(() => setLoading(false));
   };
 
+
+
+  const handleDelete = async(id) =>{
+
+    try{
+
+         await  http.delete(`/api/orders/${id}`);
+
+  
+          const {data} = await http.get("/api/orders");
+
+
+          // console.log(response);
+
+
+          setOrders(data.orders);
+          
+    
+
+
+    }catch(error){
+
+
+    }finally{
+
+
+    }
+
+  
+
+
+
+  }
+
+
+
   console.log(orders);
 
   return (
