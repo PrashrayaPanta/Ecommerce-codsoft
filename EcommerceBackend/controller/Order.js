@@ -107,11 +107,16 @@ const orderCtrl = {
     const { id } = req.params;
     const { status } = req.body;
 
+
+    console.log(typeof status);
+    
+
     // Validate status
     const validStatuses = [
       "pending",
       "processing",
-      "shipped",
+      "confirmed",
+      "shipping",
       "delivered",
       "cancelled",
     ];

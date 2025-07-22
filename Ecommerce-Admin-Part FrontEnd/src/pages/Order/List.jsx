@@ -127,7 +127,7 @@ const List = () => {
                                 <option value="processing">processing</option>
                                 <option value="confirmed">confirmed</option>
                                 <option value="shipping">Shipping</option>
-                                <option value="delivered">Deliverd</option>
+                                <option value="delivered">Delivered</option>
                                 <option value="cancelled">Cancelled</option>
                               </Form.Select>
                             </td>

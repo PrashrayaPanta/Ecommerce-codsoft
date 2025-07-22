@@ -68,7 +68,7 @@ const List = () => {
                         </thead>
                         <tbody>
                           {reviews.map((review, index) => (
-                            <tr>
+                            <tr key={index}>
                               <td>{review.user?.name}</td>
                               <td>{review?.user?.email}</td>
 
