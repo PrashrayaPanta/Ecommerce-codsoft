@@ -57,7 +57,7 @@ const orderCtrl = {
     await userFound.save();
 
     res.json({
-      message: "Order created successfully",
+      message: "Thank you for ordering",
       order: createOrder,
     });
   }),
@@ -71,7 +71,7 @@ const orderCtrl = {
     const userFound = await User.findById(req.user_id);
 
 
-    userFound
+    // userFound
 
 
 

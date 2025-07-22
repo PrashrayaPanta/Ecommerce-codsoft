@@ -13,25 +13,27 @@ const List = () => {
     setLoading(true);
 
     http
-      .get("/cms/orders")
-      .then(({ data }) => setOrders(data))
+      .get("/api/orders")
+      .then(({ data }) => setOrders(data.orders))
       .catch()
       .finally(() => setLoading(false));
   }, []);
 
   const handleUpdate = (id, status) => {
-    // console.log(id);
-    // console.log(status);
+    console.log(id);
+    console.log(status);
 
     setLoading(true);
 
     http
-      .patch(`/cms/orders/${id}`, { status })
-      .then(() => http.get("/cms/orders"))
-      .then(({ data }) => setOrders(data))
+      .put(`/api/orders/${id}`, { status })
+      .then(() => http.get("/api/orders"))
+      .then(({ data }) => setOrders(data.orders))
       .catch(() => {})
       .finally(() => setLoading(false));
   };
+
+  console.log(orders);
 
   return (
     <Container>
@@ -55,9 +57,14 @@ const List = () => {
                           <th>Order By Name</th>
                           <th>Order By Email</th>
 
-                          {/* <th>Status</th> */}
+                          <th>Order Product Name</th>
+                          <th>Quantity</th>
                           <th>Total Price</th>
-                          <th>Status</th>
+
+        
+                   
+                   
+                          <th>status</th>
 
                           <th>Created at</th>
                           <th>Updated at</th>
@@ -66,42 +73,61 @@ const List = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {orders.map((order, index) => (
+                        {orders?.map((order, index) => (
                           <tr>
-                            <td>{order.user?.name}</td>
-                            <td>{order.user?.email}</td>
-                            {/* <td>{order.status}</td> */}
-                            {/* <td>
-                              {order.details.map(
-                                (detail) => detail?.product?.name
+
+                            {/* Order Usernamne */}
+                            <td>{order.user_id?.username}</td>
+                            {/* {Order Email} */}
+                            <td>{order.user_id?.email}</td>
+
+                            {/* {Order Product Name} */}
+
+                            <td>
+                              {order.items?.map(
+                                (item) => item.product_id.name
                               )}
                             </td>
+
+                            {/* Order Quantity */}
                             <td>
-                              {order.details.map(
-                                (detail) => detail.qty * detail.price
+                              {order.items.map(
+                                (detail) => detail.quantity
                               )}
-                            </td> */}
+                            </td>
+
+                            {/* Order Price */}
+
                             <td>
+                              {order.items.map(
+                                (detail) => detail.quantity * detail.product_id.initialPrice
+                              )}
+                            </td>
+
+                            {/* <td>{order.status}</td> */}
+
+                        
+                            {/* <td>
                               <ul>
-                                {order.details.map((detail) => (
+                                {order?.details?.map((detail) => (
                                   <li key={detail._id}>
-                                    {detail.qty} x {detail.product?.name}
-                                    @Rs {detail.price} = Rs . {detail.total}
+                                    {detail.qty} x {detail?.product?.name}
+                                    @Rs {detail?.price} = Rs . {detail.total}
                                   </li>
                                 ))}
                               </ul>
-                            </td>
+                            </td> */}
                             <td>
                               <Form.Select
-                                value={order.status}
+                                value={order?.status}
                                 onChange={({ target }) =>
                                   handleUpdate(order._id, target.value)
                                 }
                               >
-                                <option value="Processing">Processing</option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Shipping">Shipping</option>
-                                <option value="Delivered">Deliverd</option>
+                                <option value="processing">processing</option>
+                                <option value="confirmed">confirmed</option>
+                                <option value="shipping">Shipping</option>
+                                <option value="delivered">Deliverd</option>
                                 <option value="cancelled">Cancelled</option>
                               </Form.Select>
                             </td>
