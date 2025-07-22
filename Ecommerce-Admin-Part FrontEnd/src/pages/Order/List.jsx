@@ -9,65 +9,66 @@ const List = () => {
 
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    setLoading(true);
+  const getOrders = async () => {
+    try {
+      setLoading(true);
+      const { data } = await http.get(`/api/orders`);
+      setOrders(data.orders);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    http
-      .get("/api/orders")
-      .then(({ data }) => setOrders(data.orders))
-      .catch()
-      .finally(() => setLoading(false));
+  useEffect(() => {
+    getOrders();
+
+    // setLoading(true);
+    // http
+    //   .get("/api/orders")
+    //   .then(({ data }) => setOrders(data.orders))
+    //   .catch()
+    //   .finally(() => setLoading(false));
   }, []);
 
-  const handleUpdate = (id, status) => {
+  const handleUpdate = async (id, status) => {
     console.log(id);
     console.log(status);
 
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    http
-      .put(`/api/orders/${id}`, { status })
-      .then(() => http.get("/api/orders"))
-      .then(({ data }) => setOrders(data.orders))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  };
+      await http.put(`/api/orders/${id}`, { status });
 
+      const { data } = await http.get("/api/orders");
 
-
-  const handleDelete = async(id) =>{
-
-    try{
-
-         await  http.delete(`/api/orders/${id}`);
-
-  
-          const {data} = await http.get("/api/orders");
-
-
-          // console.log(response);
-
-
-          setOrders(data.orders);
-          
-    
-
-
-    }catch(error){
-
-
-    }finally{
-
-
+      setOrders(data.orders);
+    } catch (error) {
+    } finally {
+      setLoading(false);
     }
 
-  
+    // http
+    //   .put(`/api/orders/${id}`, { status })
+    //   .then(() => http.get("/api/orders"))
+    //   .then(({ data }) => setOrders(data.orders))
+    //   .catch(() => {})
+    //   .finally(() => setLoading(false));
+  };
 
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
 
-
-  }
-
-
+      await http.delete(`/api/orders/${id}`);
+      const { data } = await http.get("/api/orders");
+      // console.log(response);
+      setOrders(data.orders);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
   console.log(orders);
 
@@ -97,9 +98,6 @@ const List = () => {
                           <th>Quantity</th>
                           <th>Total Price</th>
 
-        
-                   
-                   
                           <th>status</th>
 
                           <th>Created at</th>
@@ -111,7 +109,6 @@ const List = () => {
                       <tbody>
                         {orders?.map((order, index) => (
                           <tr>
-
                             {/* Order Usernamne */}
                             <td>{order.user_id?.username}</td>
                             {/* {Order Email} */}
@@ -120,29 +117,26 @@ const List = () => {
                             {/* {Order Product Name} */}
 
                             <td>
-                              {order.items?.map(
-                                (item) => item.product_id.name
-                              )}
+                              {order.items?.map((item) => item.product_id.name)}
                             </td>
 
                             {/* Order Quantity */}
                             <td>
-                              {order.items.map(
-                                (detail) => detail.quantity
-                              )}
+                              {order.items.map((detail) => detail.quantity)}
                             </td>
 
                             {/* Order Price */}
 
                             <td>
                               {order.items.map(
-                                (detail) => detail.quantity * detail.product_id.initialPrice
+                                (detail) =>
+                                  detail.quantity *
+                                  detail.product_id.initialPrice
                               )}
                             </td>
 
                             {/* <td>{order.status}</td> */}
 
-                        
                             {/* <td>
                               <ul>
                                 {order?.details?.map((detail) => (
@@ -160,6 +154,7 @@ const List = () => {
                                   handleUpdate(order._id, target.value)
                                 }
                               >
+                                <option value="pending">Pending</option>
                                 <option value="processing">processing</option>
                                 <option value="confirmed">confirmed</option>
                                 <option value="shipping">Shipping</option>
