@@ -65,6 +65,7 @@ const Layout = () => {
 
       setCategories(data?.Categories);
 
+
       //Promise Method
       // http
       //   .get("/api/categories")
@@ -335,8 +336,8 @@ const Layout = () => {
                   </li>
 
                   <li className="group relative">
-                    <a
-                      href="#"
+                    <Link
+                      to={``}
                       className="flex items-center"
                       onClick={handleClicked}
                     >
@@ -352,12 +353,12 @@ const Layout = () => {
                           d="M19 9l-7 7-7-7"
                         />
                       </svg>
-                    </a>
+                    </Link>
                     <ul className="absolute left-0  hidden group-hover:block bg-white border shadow-lg z-2">
                       {categories.map((category) => (
                         <li>
                           <a
-                            href="#"
+                            href={`/categories/${category._id}`}
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
                             {category.name}

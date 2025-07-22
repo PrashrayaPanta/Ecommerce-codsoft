@@ -17,8 +17,10 @@ const Home = () => {
   console.log(location);
 
 
-  
   const [Latestproducts, setLatestProducts] = useState([]);
+
+
+  // const 
 
   const [Loading, setLoading] = useState(false);
 

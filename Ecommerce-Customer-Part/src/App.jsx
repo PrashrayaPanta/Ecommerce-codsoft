@@ -10,6 +10,10 @@ import Home from "./pages/Home";
 
 import { Dashboard } from "./pages/Dashboard";
 import Layout from "./components/ui/Layout";
+import Category from "./pages/Category";
+
+
+
 
 function App() {
 
@@ -34,6 +38,13 @@ function App() {
 
 
             <Route path="product/:id" element={<Product/>} />
+
+
+
+            <Route path="categories/:id" element={<Category/>} />
+
+    
+
 
 
           </Route>

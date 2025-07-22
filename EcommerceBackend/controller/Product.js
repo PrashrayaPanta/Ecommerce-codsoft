@@ -116,8 +116,8 @@ const productCtrl = {
       sizes: parsedSizes,
       categoryId,
       brandId,
-      categoryName: category.name,
-      brandName:brand.name
+      categoryName: category?.name,
+      brandName:brand?.name
      
     });
 
@@ -246,7 +246,7 @@ const productCtrl = {
 
     const {id} = req.params;
 
-    const products = await Product.find({category_id: id});
+    const products = await Product.find({categoryId: id});
 
     console.log(products);
 

@@ -11,7 +11,7 @@ const ProductCard = ({ product, location }) => {
 
   return (
     <>
-      <div className="text-center">
+      <div className="">
         <Link
           class=" shadow-md rounded-md text-center p-4 bg-red-500"
           to={`/product/${product._id}`}
