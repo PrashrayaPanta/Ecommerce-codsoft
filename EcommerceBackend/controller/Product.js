@@ -6,36 +6,37 @@ const Product = require("../model/Product.js");
 
 const User = require("../model/User.js");
 
-
-const cloudinary = require("cloudinary").v2;// Import the Brand model
-
-
+const cloudinary = require("cloudinary").v2; // Import the Brand model
 
 const Category = require("../model/Category.js");
 
-
-
-const subCategory = require("../model/SubCategory.js")
-
-
+const subCategory = require("../model/SubCategory.js");
 
 const Brand = require("../model/Brand.js");
 const { deleteOnlyImageHandler } = require("./File.js");
 const Review = require("../model/Review.js");
 const PriceHistory = require("../model/PriceHistory.js"); // Import the PriceHistory model
 
-
 const productCtrl = {
-
   createProduct: asyncHandler(async (req, res) => {
-
-
     console.log("Request body:", req.body); // Log the entire request body
 
-    const { name, description, categoryId, initialPrice, colors, sizes,   brandId, summary, discountedPrice } = req.body;
+    const {
+      name,
+      description,
+      categoryId,
+      initialPrice,
+      colors,
+      sizes,
+      brandId,
+      summary,
+      discountedPrice,
+    } = req.body;
 
     if (!name || !description || !categoryId || !initialPrice) {
-      return res.status(400).json({ message: "Some fields are missing in the request body" });
+      return res
+        .status(400)
+        .json({ message: "Some fields are missing in the request body" });
     }
 
     // console.log(discountPercentage);
@@ -44,53 +45,26 @@ const productCtrl = {
 
     console.log(category);
 
-
-
     const brand = await Brand.findById(brandId);
 
     console.log(brand);
-    
-    
-
-
-
-
-     
-    
 
     // Parse JSON strings for colors and sizes
-    const parsedColors = typeof colors === "string" ? JSON.parse(colors) : colors;
+    const parsedColors =
+      typeof colors === "string" ? JSON.parse(colors) : colors;
     const parsedSizes = typeof sizes === "string" ? JSON.parse(sizes) : sizes;
-
-
 
     // console.log(typeof parsedColors, typeof parsedSizes);
 
-
-
     console.log(typeof parsedColors);
 
-
-
-
-
-
-    const slug = name.split(" ").join("-")
-
+    const slug = name.split(" ").join("-");
 
     console.log(slug);
 
-
     // const categoryDocument = await Category.findOne({_id: categoryId});
 
-
     // console.log(categoryDocument)
-
-
-
-
-    
-
 
     const images = await Promise.all(
       req.files.map(async (file) => {
@@ -100,8 +74,6 @@ const productCtrl = {
         };
       })
     );
-
-
 
     // Create the product
     const product = await Product.create({
@@ -117,13 +89,10 @@ const productCtrl = {
       categoryId,
       brandId,
       categoryName: category?.name,
-      brandName:brand?.name
-     
+      brandName: brand?.name,
     });
 
-
     // console.log(product);
-    
 
     res.status(201).json({ message: "Product created successfully", product });
   }),
@@ -163,7 +132,6 @@ const productCtrl = {
     });
   }),
 
-
   deleteCertainProductReview: asyncHandler(async (req, res) => {
     const { productId, reviewId } = req.params;
 
@@ -186,9 +154,7 @@ const productCtrl = {
       (review) => review._id != reviewId
     );
 
-
     console.log(updatedReviews);
-    
 
     // Update the product's reviews array
     product.reviews = updatedReviews;
@@ -202,28 +168,26 @@ const productCtrl = {
     });
   }),
 
-
   getAllproduct: asyncHandler(async (req, res) => {
-
-    console.log("I am lower endpoint")
+    console.log("I am lower endpoint");
     const products = await Product.find();
 
-  
     res.status(201).json({ products });
 
     //
   }),
 
   getCertainproduct: asyncHandler(async (req, res) => {
-
     console.log("Hello I am inside get product By Id");
-    
+
     const { id } = req.params;
 
-    const product = await Product.findById(id).populate({path:"reviews.DoneBy",select:"username email" } );
+    const product = await Product.findById(id).populate({
+      path: "reviews.DoneBy",
+      select: "username email",
+    });
 
     console.log(product);
-    
 
     if (!product) {
       return res.status(404).json({
@@ -238,101 +202,53 @@ const productCtrl = {
     });
   }),
 
+  getAllProductByCategoryId: asyncHandler(async (req, res) => {
+    console.log("I am inside the get all product by category Id");
 
-  getAllProductByCategoryId: asyncHandler(async(req, res) =>{
+    const { id } = req.params;
 
-    console.log("I am inside the get all product by category Id")
-
-
-    const {id} = req.params;
-
-    const products = await Product.find({categoryId: id});
+    const products = await Product.find({ categoryId: id });
 
     console.log(products);
 
-
-    res.json({products})
-
-
+    res.json({ products });
   }),
 
-
-
-
-  getAllProductByBrandId: asyncHandler(async(req, res) =>{
-
-
-    const {id} = req.params;
-
+  getAllProductByBrandId: asyncHandler(async (req, res) => {
+    const { id } = req.params;
 
     console.log(id);
 
-
-    const {slug} = req.params;
-
+    const { slug } = req.params;
 
     console.log(slug);
 
-
-
-    const products = await Product.find({brand_id: id  });
-
+    const products = await Product.find({ brandId: id });
 
     console.log(products);
-    
 
-    res.json({products})
-
-
-
-
-
+    res.json({ products });
   }),
 
+  getAllProductsBySubCategoryId: asyncHandler(async (req, res) => {
+    const { id } = req.params;
 
+    const products = await Product.find({ subCategory: id });
 
-  getAllProductsBySubCategoryId:asyncHandler(async(req, res) =>{
+    console.log(products);
 
-
-      const {id} = req.params;
-
-
-
-      const products = await Product.find({subCategory: id});
-
-
-
-      console.log(products);
-
-
-      res.json({products})
-      
-
-
-
-  })
-
-
-
-,
-
+    res.json({ products });
+  }),
 
   //! Update the product
   updateCertainproduct: asyncHandler(async (req, res) => {
+    console.log("I am inside the edit certain product controoler");
 
-
-  console.log("I am inside the edit certain product controoler");
-  
-
-    const {id} = req.params;
+    const { id } = req.params;
 
     console.log(id);
 
-
     console.log(req.files);
-
-
-
 
     const images = await Promise.all(
       req.files?.map(async (file) => {
@@ -343,66 +259,60 @@ const productCtrl = {
       })
     );
 
-
-
-    const {name, description, summary, categoryId, brandId, initialPrice, discountedPrice} = req.body;
-
-
+    const {
+      name,
+      description,
+      summary,
+      categoryId,
+      brandId,
+      initialPrice,
+      discountedPrice,
+    } = req.body;
 
     console.log(name, description, summary, categoryId, brandId);
 
-
     const category = await Category.findById(categoryId);
 
-
     const brand = await Brand.findById(brandId);
-    
-
 
     const product = await Product.findById(id);
 
-
-
     console.log(product);
 
-
-    if(!product){
-
-          throw new Error("Product Not Found")
-
+    if (!product) {
+      throw new Error("Product Not Found");
     }
-    
-
 
     // console.log(product);
-    
+
     // if(product.name === name && product.description === description  && product.summary === summary && product.category_id === categoryId && product.brand_id === brandId ){
     //   throw new Error("Same Name");
     // }
 
-  
-  const updateProduct =  await Product.findByIdAndUpdate(id , {name, summary, description, categoryId, brandId ,
-    images, initialPrice, discountedPrice, categoryName:category.name, brandName: brand.name
-   });
+    const updateProduct = await Product.findByIdAndUpdate(id, {
+      name,
+      summary,
+      description,
+      categoryId,
+      brandId,
+      images,
+      initialPrice,
+      discountedPrice,
+      categoryName: category.name,
+      brandName: brand.name,
+    });
 
+    console.log(updateProduct);
 
-   console.log(updateProduct);
-   
-
-   res.json({message:'Updated succesfully', updateProduct})
-  
+    res.json({ message: "Updated succesfully", updateProduct });
   }),
-
-
-
-
-
-
 
   getCertainproductCategory: asyncHandler(async (req, res) => {
     const { id } = req.params;
 
-    const product = await Product.findById(id).select("-initialPrice -finalPrice -description").populate("category_id");
+    const product = await Product.findById(id)
+      .select("-initialPrice -finalPrice -description")
+      .populate("category_id");
 
     if (!product) {
       return res.status(404).json({
@@ -418,11 +328,9 @@ const productCtrl = {
   }),
 
   Latestproducts: asyncHandler(async (req, res) => {
+    console.log("I am inside latest products");
 
-
-    console.log("I am inside latest products")
-
-    console.log("I am inside the latest products")
+    console.log("I am inside the latest products");
     const products = await Product.find()
       .limit(2)
       .sort({ createdAt: -1 })
@@ -440,13 +348,11 @@ const productCtrl = {
     const { query } = req;
 
     console.log(query);
-    
 
     //! Populating the username and email only
     const products = await Product.find(query);
 
     console.log(products);
-    
 
     res.status(200).json({
       status: "Success",
@@ -456,23 +362,13 @@ const productCtrl = {
     });
   }),
 
-
-
-
-  lowtoHighPriceProduct:asyncHandler(async(req, res) =>{
-
+  lowtoHighPriceProduct: asyncHandler(async (req, res) => {
     console.log("Hellooop I am inside low to hight proce product");
-    
 
-    const products = await Product.find().sort({finalPrice:1})
+    const products = await Product.find().sort({ finalPrice: 1 });
 
-    res.json({products});
-
-
-
+    res.json({ products });
   }),
-
-
 
   getAllProductsByCategory: asyncHandler(async (req, res) => {
     const { categoryId } = req.params; // Get the category ID from the request parameters
@@ -487,11 +383,14 @@ const productCtrl = {
 
     // Filter products belonging to the specified category
     const filteredProducts = allProducts.filter(
-      (product) => product.category_id && product.category_id._id.toString() === categoryId
+      (product) =>
+        product.category_id && product.category_id._id.toString() === categoryId
     );
 
     if (filteredProducts.length === 0) {
-      return res.status(404).json({ message: "No products found for this category" });
+      return res
+        .status(404)
+        .json({ message: "No products found for this category" });
     }
 
     res.status(200).json({ products: filteredProducts });
@@ -517,42 +416,35 @@ const productCtrl = {
   //   res.status(200).json({ products });
   // }),
 
-
-  createCertainProductReviews:asyncHandler(async(req, res)=>{
-    const {id} = req.params;
-    const product = await Product.findById(id).select("-description -images -colors -sizes");
+  createCertainProductReviews: asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findById(id).select(
+      "-description -images -colors -sizes"
+    );
     // console.log(product);
-    if(!product){
-          throw new Error("The product id provided trhere is not ")
+    if (!product) {
+      throw new Error("The product id provided trhere is not ");
     }
 
     //create the reviews
-    const {comment, rating} = req.body;
+    const { comment, rating } = req.body;
 
     // console.log(comment, rating);
-    
-    product?.reviews.push({comment, rating, DoneBy: req.user_id })
+
+    product?.reviews.push({ comment, rating, DoneBy: req.user_id });
     await product?.save();
-    res.json({message:"review Created Succesfully", product})
+    res.json({ message: "review Created Succesfully", product });
   }),
 
+  getCertainProductReviews: asyncHandler(async (req, res) => {
+    const { id } = req.params;
 
-  getCertainProductReviews:asyncHandler(async(req, res)=>{
+    const productReviews = await Product.findById(id).populate(
+      "reviews.DoneBy"
+    );
 
-    const {id} = req.params;
-
-
-
-    const productReviews = await Product.findById(id).populate("reviews.DoneBy");
-
-
-    res.json({productReviews})
-
-
-
-
+    res.json({ productReviews });
   }),
-
 
   updateProductPrice: asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -580,26 +472,13 @@ const productCtrl = {
     res.json({ message: "Product price updated successfully", product });
   }),
 
-
-
-
-
-
-
   // getAllProductsReviews: asyncHandler(async(req, res) =>{
 
   //     const products = await Product.find();
 
   //     console.log(products);
-      
-
-
-
 
   // })
-
-
-
 };
 
 module.exports = productCtrl;

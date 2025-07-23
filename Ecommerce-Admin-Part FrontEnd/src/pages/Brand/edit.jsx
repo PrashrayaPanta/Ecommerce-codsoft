@@ -90,10 +90,10 @@ const Edit = () => {
   useEffect(() => {
     setLoading(true);
     http
-      .get("/api/admin/brands")
+      .get("/api/cms/admin/brands")
       .then(({ data }) => {
         setBrands(data.brands);
-        return http.get(`/api/brands/${id}`);
+        return http.get(`/api/admin/brands/${id}`);
       })
       .then(({ data }) => setBrand(data.brand))
       .catch()
@@ -127,7 +127,7 @@ const Edit = () => {
     setLoading(true);
     http
       .delete(`/api/admin/brands/${id}/${public_id}}`)
-      .then(() => http.get(`/api/brands/${id}`))
+      .then(() => http.get(`/api/admin/brands/${id}`))
       .then(({ data }) => setBrand(data.brand))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -225,8 +225,8 @@ const Edit = () => {
                               </Col>
                             </Row>
 
-                            {
-                                brand.logo === null ? null :    <Row className="">
+                            {brand.logo === null ? null : (
+                              <Row className="">
                                 <Col className="mt-3 text-center">
                                   <Button
                                     onClick={() =>
@@ -244,9 +244,7 @@ const Edit = () => {
                                   </Button>
                                 </Col>
                               </Row>
-
-
-                            }
+                            )}
 
                             {/* {brand.logo === null ? (
                            

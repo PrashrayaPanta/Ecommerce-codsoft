@@ -1,31 +1,23 @@
 const express = require("express");
 
-
 const isAuthenticated = require("../middleware/isAuth.js");
-
 
 const brandRoute = express.Router();
 
-
 const brandCtrl = require("../controller/Brand.js");
 const isAdmin = require("../middleware/isAdmin.js");
-
-
 
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
-const { deleteOnlyImageHandlerForBrand, getImageDetailsHandlerForBrand} = require("../controller/File.js");
-
+const {
+  deleteOnlyImageHandlerForBrand,
+  getImageDetailsHandlerForBrand,
+} = require("../controller/File.js");
 
 const productRoute = require("./productRoute.js");
 const productCtrl = require("../controller/Product.js");
-
-
-
-
-
 
 // Configure Cloudinary
 cloudinary.config({
@@ -35,6 +27,7 @@ cloudinary.config({
 });
 
 // Configure Cloudinary Storage
+
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -56,60 +49,58 @@ const upload = multer({
   },
 });
 
+brandRoute.get("/normaluser/brands/:id", brandCtrl.GetCertainBrand);
 
 //! Admin
 
-brandRoute.post("/admin/brands", isAuthenticated, isAdmin, upload.single("image"),  brandCtrl.createBrand);
+brandRoute.post(
+  "/admin/brands",
+  isAuthenticated,
+  isAdmin,
+  upload.single("image"),
+  brandCtrl.createBrand
+);
 
+brandRoute.get("/cms/admin/brands", brandCtrl.getAllBrand);
 
-
-brandRoute.get("/admin/brands",  brandCtrl.getAllBrand);
-
-
-
-brandRoute.delete("/admin/brands/:id/:whichfolderinside/:filename", isAuthenticated, isAdmin,
+brandRoute.delete(
+  "/admin/brands/:id/:whichfolderinside/:filename",
+  isAuthenticated,
+  isAdmin,
   deleteOnlyImageHandlerForBrand
 );
 
+productRoute.get("/brands/:id/products", productCtrl.getAllProductByBrandId);
 
-
-
-
-brandRoute.get("/brands/:nodejsBrandImage/:filename",
+brandRoute.get(
+  "/brands/:nodejsBrandImage/:filename",
   getImageDetailsHandlerForBrand
 );
 
+brandRoute.get(
+  "/admin/brands/:id",
+  isAuthenticated,
+  isAdmin,
+  brandCtrl.GetCertainBrand
+);
 
-brandRoute.get("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.GetCertainBrand)
+brandRoute.delete(
+  "/admin/brands/:id",
+  isAuthenticated,
+  isAdmin,
+  brandCtrl.deleteCertainBrand
+);
 
-
-
-brandRoute.delete("/admin/brands/:id", isAuthenticated, isAdmin, brandCtrl.deleteCertainBrand);
-
-
-brandRoute.put("/admin/brands/:id", isAuthenticated , isAdmin, upload.single("image"), brandCtrl.EditCertainBrand);
-
-
-
-
-
-
-
+brandRoute.put(
+  "/admin/brands/:id",
+  isAuthenticated,
+  isAdmin,
+  upload.single("image"),
+  brandCtrl.EditCertainBrand
+);
 
 //!FrontEnd Part
 
 brandRoute.get("/brands", brandCtrl.getAllBrand);
 
-brandRoute.get("/brands/:id",  brandCtrl.GetCertainBrand);
-
-productRoute.get("/brands/:id/products", productCtrl. getAllProductByBrandId)
-
-
-
-
-
-
-
-
 module.exports = brandRoute;
-

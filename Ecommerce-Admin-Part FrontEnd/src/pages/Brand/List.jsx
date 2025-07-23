@@ -15,7 +15,7 @@ const List = () => {
   useEffect(() => {
     setLoading(true);
     http
-      .get("/api/brands")
+      .get("/api/cms/admin/brands")
       .then(({ data }) => setbrands(data.brands))
       .catch()
       .finally(() => setLoading(false));
@@ -28,12 +28,11 @@ const List = () => {
 
     http
       .delete(`/api/admin/brands/${id}`)
-      .then(() => http.get("/api/brands"))
+      .then(() => http.get("/api/cms/admin/brands"))
       .then(({ data }) => setbrands(data.brands))
-      .catch(() =>{})
+      .catch(() => {})
       .catch();
   };
-
 
   return (
     <div>
@@ -83,10 +82,10 @@ const List = () => {
                               <td>{brand.name}</td>
                               <td>{brand.slogan}</td>
                               <td>
-
-                                <img src={brand?.logo?.url} className="img-sm"/>
-
-
+                                <img
+                                  src={imgURL(brand?.logo?.public_id)}
+                                  className="img-sm"
+                                />
                               </td>
 
                               <td>{dtFormat(brand.createdAt)}</td>

@@ -36,24 +36,17 @@ const Layout = () => {
 
   const [loading, setLoading] = useState(false);
 
-
-
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.value);
 
-  const cart = useSelector((state)=>state.cart.value);
-
-
+  const cart = useSelector((state) => state.cart.value);
 
   const [totalPrice, setTotalPrice] = useState();
 
-
   const [totalQty, setTotalQty] = useState();
 
-
   console.log(cart);
-  
 
   // console.log(brands);
 
@@ -64,7 +57,6 @@ const Layout = () => {
       const { data } = await http.get("/api/categories");
 
       setCategories(data?.Categories);
-
 
       //Promise Method
       // http
@@ -127,8 +119,6 @@ const Layout = () => {
     }
   }, [cart]);
 
-
-  
   const handleLogout = (e) => {
     e.preventDefault();
     ClearStorage("customerPartToken");
@@ -182,7 +172,6 @@ const Layout = () => {
       <header>
         {/* <!-- Top Nav Bar --> */}
         <div className="sm:flex sm:justify-between sm:items-center sm:px-2 text-white bg-black p-2">
-
           {/* Phone no and Email Section */}
           <nav>
             <ul className="sm:flex gap-4">
@@ -386,7 +375,7 @@ const Layout = () => {
                   </li>
 
                   <li className="group relative">
-                    <a href="#" className="flex items-center">
+                    <Link to="" className="flex items-center">
                       Brands
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -395,16 +384,16 @@ const Layout = () => {
                       >
                         <path stroke-linecap="round" d="M19 9l-7 7-7-7" />
                       </svg>
-                    </a>
+                    </Link>
                     <ul className="absolute left-0  hidden group-hover:block bg-white border shadow-lg z-2">
                       {brands.map((brand) => (
                         <li>
-                          <a
-                            href="#"
+                          <Link
+                            to={`/brands/${brand._id}`}
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
                             {brand.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                       {/* <li>

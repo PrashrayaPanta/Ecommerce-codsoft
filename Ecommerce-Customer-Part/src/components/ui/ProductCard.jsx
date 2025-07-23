@@ -17,7 +17,7 @@ const ProductCard = ({ product, location }) => {
           to={`/product/${product._id}`}
         >
           <img
-            src={imgURL(product.images[0]?.public_id)}
+            src={imgURL(product.images?.[0]?.public_id)}
             alt="Sony Alpha DSLR Camera"
             class="w-full object-contain h-50"
           />

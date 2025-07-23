@@ -5,20 +5,29 @@ const Product = require("../model/Product");
 const cloudinary = require("cloudinary").v2; // Import the Brand model
 
 const getImageDetailsHandlerForBrand = async (req, res) => {
+  console.log("IUHDSKFHKJHDFJKLHSK sdfknkjsdnfkjn");
 
   console.log("I am here kjnkjnjkn");
-  
+
   try {
+    console.log("I am inside the image details handler for brand");
+
     // const {filename1, nodejsProductImages} = req.params;
 
     // console.log(nodejsProductImages);
 
+    console.log("IUGHiuhbhju");
+
     const { filename, nodejsBrandImage } = req.params; // Extract parameters from the request
+
+    console.log(filename, nodejsBrandImage);
 
     console.log("Fetching image for:", filename, nodejsBrandImage);
 
     // Combine folder name and filename to form the public ID
     const publicIDBrand = `${nodejsBrandImage}/${filename}`;
+
+    console.log("sdiofjiosdjnfkjnkjsdfnjkv");
 
     // const publicIdProduct = `${nodejsProductImages}/${filename1}`
 
@@ -52,37 +61,30 @@ const getImageDetailsHandlerForBrand = async (req, res) => {
 };
 
 const getImageDetailsHandlerForProduct = async (req, res) => {
+  try {
+    const { filename, nodejsProductImages } = req.params;
 
-  
+    console.log(nodejsProductImages);
 
-  try{
-  const { filename, nodejsProductImages } = req.params;
+    // Combine folder name and filename to form the public ID
+    const publicID = `${nodejsProductImages}/${filename}`;
 
-  console.log(nodejsProductImages);
+    // Fetch image details from Cloudinary  `
+    const result = await cloudinary.api.resource(publicID);
 
-  // Combine folder name and filename to form the public ID
-  const publicID = `${nodejsProductImages}/${filename}`;
+    if (!result || !result.secure_url) {
+      return res.status(404).json({ message: "Image not found in Cloudinary" });
+    }
 
-  // Fetch image details from Cloudinary  `
-  const result = await cloudinary.api.resource(publicID);
-
-  if (!result || !result.secure_url) {
-    return res.status(404).json({ message: "Image not found in Cloudinary" });
+    // Redirect the client to the image URL
+    res.redirect(result.secure_url);
+  } catch (error) {
+    console.log(error);
   }
-
-  // Redirect the client to the image URL
-  res.redirect(result.secure_url);
-
-}catch(error){
-
-  console.log(error);
-  
-}
 };
 
 const deleteOnlyImageHandlerForBrand = async (req, res) => {
-
-  console.log("I am inside here deleye image for brand")
+  console.log("I am inside here deleye image for brand");
   const { id } = req.params;
 
   const { filename } = req.params;
@@ -116,7 +118,6 @@ const deleteOnlyImageHandlerForBrand = async (req, res) => {
 };
 
 const deleteImageHandlerForProduct = async (req, res) => {
-
   console.log("I am inside the delete image handler for product");
   const { id } = req.params;
 
@@ -144,22 +145,18 @@ const deleteImageHandlerForProduct = async (req, res) => {
 
     const Images = product?.images;
 
-
-    //filter on the basis of public_id match or not 
-    const filteredArrayImage = Images.filter(image => image.public_id !== publicIdFull)
-
-
-    
-    
+    //filter on the basis of public_id match or not
+    const filteredArrayImage = Images.filter(
+      (image) => image.public_id !== publicIdFull
+    );
 
     product.images.map(async (image) => {
-       // Update the Product document to remove the 
-        await Product.findByIdAndUpdate(
-          id,
-          { images:  filteredArrayImage }, // set the images with filteredArrayImage
-          { new: true }
-        );
-      
+      // Update the Product document to remove the
+      await Product.findByIdAndUpdate(
+        id,
+        { images: filteredArrayImage }, // set the images with filteredArrayImage
+        { new: true }
+      );
     });
 
     res.status(200).json({

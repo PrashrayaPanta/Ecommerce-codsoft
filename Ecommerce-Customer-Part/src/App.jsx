@@ -11,19 +11,14 @@ import Home from "./pages/Home";
 import { Dashboard } from "./pages/Dashboard";
 import Layout from "./components/ui/Layout";
 import Category from "./pages/Category";
-
-
-
+import Brand from "./pages/Brand";
 
 function App() {
-
-
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout/>}>
-
+          <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
 
             <Route path="login" element={<Login />} />
@@ -36,17 +31,11 @@ function App() {
 
             <Route path="dashboard" element={<Dashboard />} />
 
+            <Route path="product/:id" element={<Product />} />
 
-            <Route path="product/:id" element={<Product/>} />
+            <Route path="categories/:id" element={<Category />} />
 
-
-
-            <Route path="categories/:id" element={<Category/>} />
-
-    
-
-
-
+            <Route path="brand/:id" element={<Brand />} />
           </Route>
         </Routes>
       </BrowserRouter>

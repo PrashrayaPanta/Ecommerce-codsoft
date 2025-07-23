@@ -6,16 +6,16 @@ const isAuthenticated = require("../middleware/isAuth");
 
 const productRoute = express.Router();
 
-
-
 const multer = require("multer");
 
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const isAdmin = require("../middleware/isAdmin.js");
 
-
-const { deleteOnlyImageHandler, getImageDetailsHandlerForProduct, deleteImageHandlerForProduct} = require("../controller/File.js");
-
+const {
+  deleteOnlyImageHandler,
+  getImageDetailsHandlerForProduct,
+  deleteImageHandlerForProduct,
+} = require("../controller/File.js");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -52,9 +52,6 @@ const upload = multer({
   },
 });
 
-
-
-
 productRoute.post(
   "/admin/products",
   isAuthenticated,
@@ -63,41 +60,28 @@ productRoute.post(
   productCtrl.createProduct
 );
 
-
-
-
-
-
-
-productRoute.delete("/admin/products/:id/:nodejsProductImages/:filename", 
+productRoute.delete(
+  "/admin/products/:id/:nodejsProductImages/:filename",
   deleteImageHandlerForProduct
 );
 
-
-
-
-
-productRoute.get("/products/search", productCtrl.searchProduct)
+productRoute.get("/products/search", productCtrl.searchProduct);
 
 productRoute.get("/products/Latestproducts", productCtrl.Latestproducts);
 
-
 productRoute.get("/products/lowtohigh", productCtrl.lowtoHighPriceProduct);
-
 
 productRoute.get("/products/:id", productCtrl.getCertainproduct);
 
-
-
-
-
 // productRoute.get("/frontend/latestproducts", )
 
-
-
-
-productRoute.put("/admin/products/:id", isAuthenticated, isAdmin, upload.array("images"), productCtrl.updateCertainproduct);
-
+productRoute.put(
+  "/admin/products/:id",
+  isAuthenticated,
+  isAdmin,
+  upload.array("images"),
+  productCtrl.updateCertainproduct
+);
 
 // productRoute.get("/:categoryName", isAuthenticated, isAdmin,  productCtrl.getAllProductsByCategoryName);
 
@@ -105,88 +89,74 @@ productRoute.put("/admin/products/:id", isAuthenticated, isAdmin, upload.array("
 
 // productRoute.get("/search",  isAuthenticated, isAdmin,  productCtrl.searchproduct);
 
+productRoute.get(
+  "/admin/products/:id",
+  isAuthenticated,
+  isAdmin,
+  productCtrl.getCertainproduct
+);
 
+productRoute.get(
+  "/admin/products",
+  isAuthenticated,
+  isAdmin,
+  productCtrl.getAllproduct
+);
 
-productRoute.get("/admin/products/:id", isAuthenticated, isAdmin, productCtrl.getCertainproduct);
-
-
-productRoute.get("/admin/products", isAuthenticated, isAdmin, productCtrl.getAllproduct);
-
-
-productRoute.get("/:nodejsProductImages/:filename", 
+productRoute.get(
+  "/:nodejsProductImages/:filename",
   getImageDetailsHandlerForProduct
 );
 
+productRoute.delete(
+  "/admin/products/:id",
+  isAuthenticated,
+  isAdmin,
+  productCtrl.deleteproduct
+);
 
+productRoute.delete(
+  "/admin/products/:productId/reviews/:reviewId",
+  isAuthenticated,
+  isAdmin,
+  productCtrl.deleteCertainProductReview
+);
 
-
-
-productRoute.delete("/admin/products/:id", isAuthenticated, isAdmin, productCtrl.deleteproduct);
-
-
-productRoute.delete("/admin/products/:productId/reviews/:reviewId", isAuthenticated, isAdmin, productCtrl.deleteCertainProductReview);
-
-
-
-productRoute.get("/admin/products/:id/reviews", isAuthenticated, isAdmin, productCtrl.getCertainProductReviews)
-
-
+productRoute.get(
+  "/admin/products/:id/reviews",
+  isAuthenticated,
+  isAdmin,
+  productCtrl.getCertainProductReviews
+);
 
 // productRoute.get("/latestproduct", isAuthenticated,  productCtrl.Latestproducts);
 
 // productRoute.get("/search",  isAuthenticated,  productCtrl.searchproduct);
 
+productRoute.post(
+  "/products/:id/reviews",
+  isAuthenticated,
+  productCtrl.createCertainProductReviews
+);
 
-
-
-
-productRoute.post("/products/:id/reviews", isAuthenticated, productCtrl.createCertainProductReviews);
-
-
-productRoute.get("/products/:id/reviews", isAuthenticated, productCtrl.getCertainProductReviews)
-
-
-
-
-
-
-
+productRoute.get(
+  "/products/:id/reviews",
+  isAuthenticated,
+  productCtrl.getCertainProductReviews
+);
 
 // productCtrl.get("/cms/reviews", isAuthenticated, isAdmin, )
 
-
-
 //!FrontEnd Part
-
-
-
-
-
-
-
-
-
-
 
 // productRoute.get("/products", productCtrl.getAllproduct);
 
-
-
 // productRoute.get("/sub-categories/:id/products", productCtrl.getAllProductsBySubCategoryId)
-
 
 // productRoute.get("/products/categories/:id/products", productCtrl.getAllProductByCategoryId)
 
 //! Top Latest Product
 
-
-
-
-
-
-
 // productRoute.get("/frontend/brands/:slug/products", productCtrl.getAllProductByBrandId )
-
-
 
 module.exports = productRoute;
