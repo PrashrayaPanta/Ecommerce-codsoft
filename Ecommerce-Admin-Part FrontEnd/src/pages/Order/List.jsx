@@ -117,7 +117,9 @@ const List = () => {
                             {/* {Order Product Name} */}
 
                             <td>
-                              {order.items?.map((item) => item.product_id.name)}
+                              {order.items?.map(
+                                (item) => item?.product_id?.name
+                              )}
                             </td>
 
                             {/* Order Quantity */}
@@ -130,8 +132,8 @@ const List = () => {
                             <td>
                               {order.items.map(
                                 (detail) =>
-                                  detail.quantity *
-                                  detail.product_id.initialPrice
+                                  detail?.quantity *
+                                  detail.product_id?.initialPrice
                               )}
                             </td>
 

@@ -35,7 +35,15 @@ function App() {
 
             <Route path="categories/:id" element={<Category />} />
 
-            <Route path="brand/:id" element={<Brand />} />
+            <Route path="brands/:id" element={<Brand />} />
+
+
+            {/* <Route path="" /> */}
+
+
+
+
+
           </Route>
         </Routes>
       </BrowserRouter>

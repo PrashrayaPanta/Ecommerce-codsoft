@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductSection from "../components/ui/ProductSection";
 import http from "../http";
+import LoadingComponent from "../components/ui/LoadingComponent";
 
 const Brand = () => {
   const [brand, setBrand] = useState({});
@@ -32,7 +33,7 @@ const Brand = () => {
 
   return (
     <div>
-      <ProductSection products={products} />
+      {loading ? <LoadingComponent /> : <ProductSection products={products} />}
     </div>
   );
 };

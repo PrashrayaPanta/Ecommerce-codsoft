@@ -5,7 +5,11 @@ import * as Yup from "yup";
 // import YupPassword from "yup-password";
 import http from "../../http";
 import { useNavigate, useParams } from "react-router-dom";
-import { BackendvalidationError, imgURL, imgURLForProduct } from "../../library";
+import {
+  BackendvalidationError,
+  imgURL,
+  imgURLForProduct,
+} from "../../library";
 import { useEffect, useState } from "react";
 import { LoadingComponent } from "../../components";
 
@@ -28,17 +32,14 @@ export const Edit = () => {
 
   console.log(product);
 
-
   console.log(brands);
-  
-  
 
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
       description: "",
-      summary:"",
+      summary: "",
       initialPrice: "",
       discountedPrice: "",
       categoryId: "",
@@ -99,24 +100,19 @@ export const Edit = () => {
     http
       .get("/api/admin/categories")
       .then(({ data }) => {
-
         setCategories(data.Categories);
-        return http.get("/api/admin/brands");
+        return http.get("/api/cms/admin/brands");
       })
       .then(({ data }) => {
-        
         setBrands(data.brands);
         return http.get(`/api/admin/products/${id}`);
       })
-      .then(({ data }) => setProduct(data.product)
-      )
-      .catch((error)=> console.log(error))
+      .then(({ data }) => setProduct(data.product))
+      .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, []);
 
-
   console.log(product);
-  
 
   useEffect(() => {
     if (Object.keys(product).length > 0) {
@@ -131,14 +127,14 @@ export const Edit = () => {
 
   const handleDelete = (filename) => {
     console.log(filename);
-    
+
     setLoading(true);
     http
       .delete(`/api/admin/products/${id}/${filename}`)
       .then(() => http.get(`/api/admin/products/${id}`))
       .then(({ data }) => setProduct(data.product))
       .catch(() => {})
-      .finally(() => setLoading(false));  
+      .finally(() => setLoading(false));
   };
 
   console.log(product);
@@ -304,7 +300,9 @@ export const Edit = () => {
                               <Row className="">
                                 <Col className="mt-3 text-center">
                                   <Button
-                                    onClick={() => handleDelete(image?.public_id)}
+                                    onClick={() =>
+                                      handleDelete(image?.public_id)
+                                    }
                                     variant="danger"
                                     size="sm"
                                     type="button"
@@ -330,7 +328,6 @@ export const Edit = () => {
                         name="discountedPrice"
                         formik={formik}
                       />
-           
 
                       <SubmitBtn formik={formik} label="Edit" />
                     </Form>

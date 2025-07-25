@@ -26,17 +26,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function Dashboard() {
-  const [open, setOpened] = useState(false);
+  // const [open, setOpened] = useState(false);
 
-  const [openBrandItem, setopenBrandItem] = useState(false);
+  // const [openBrandItem, setopenBrandItem] = useState(false);
 
-  const handleClicked = () => {
-    setOpened(!open);
-  };
+  // const handleClicked = () => {
+  //   setOpened(!open);
+  // };
 
-  const handleClickedForBrandItem = () => {
-    setopenBrandItem(!openBrandItem);
-  };
+  // const handleClickedForBrandItem = () => {
+  //   setopenBrandItem(!openBrandItem);
+  // };
   return (
     <>
    
@@ -45,6 +45,7 @@ export function Dashboard() {
           <TabsList>
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="password">Password</TabsTrigger>
+            <TabsTrigger value="order">Order</TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <Card>
@@ -93,6 +94,51 @@ export function Dashboard() {
                 <Button>Save password</Button>
               </CardFooter>
             </Card>
+          </TabsContent>
+
+
+          <TabsContent value="order">
+            {/* <Card>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
+                <CardDescription>
+                  Change your password here. After saving, you&apos;ll be logged
+                  out.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-6">
+                <div className="grid gap-3">
+                  <label htmlFor="tabs-demo-current">Current password</label>
+                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                </div>
+                <div className="grid gap-3">
+                  <label htmlFor="tabs-demo-new">New password</label>
+                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save password</Button>
+              </CardFooter>
+            </Card> */}
+            <table className="bg-red-500">
+
+                <tr>
+                    <td>Order ProductName</td>
+                    <td>Order Quantity</td>
+                    <td>Price</td>
+                    <td>Status</td>
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+            </table>
+
           </TabsContent>
         </Tabs>
       </div>

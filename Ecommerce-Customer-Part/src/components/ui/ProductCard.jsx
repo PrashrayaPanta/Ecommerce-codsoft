@@ -23,7 +23,7 @@ const ProductCard = ({ product, location }) => {
           />
         </Link>
 
-        <div>
+        <div className="text-white text-center">
           <h2 class="text-xl font-semibold text-gray-700 mb-2">
             {/* Sony Alpha DSLR Camera */}
             {product.name}
@@ -31,7 +31,7 @@ const ProductCard = ({ product, location }) => {
 
           {product?.discountedPrice > 0 ? (
             <>
-              <p class="line-through text-gray-400 font-semibold text-lg">
+              <p class="line-through  font-semibold text-lg">
                 ${product.initialPrice}
               </p>
               <p class="font-bold text-lg ">${product.discountedPrice}</p>

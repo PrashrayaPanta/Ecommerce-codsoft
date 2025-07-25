@@ -113,12 +113,12 @@ const productSchema = new mongoose.Schema(
 
         DoneBy: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User", // Reference to Category model
+          ref: "User", // Reference to User model
         },
 
-        date:{
-          type: Date
-        }
+        date: {
+          type: Date,
+        },
       },
     ],
   },

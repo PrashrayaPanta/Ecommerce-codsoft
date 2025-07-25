@@ -326,7 +326,7 @@ const Layout = () => {
 
                   <li className="group relative">
                     <Link
-                      to={``}
+                      to=""
                       className="flex items-center"
                       onClick={handleClicked}
                     >
@@ -387,7 +387,7 @@ const Layout = () => {
                     </Link>
                     <ul className="absolute left-0  hidden group-hover:block bg-white border shadow-lg z-2">
                       {brands.map((brand) => (
-                        <li>
+                        <li key={brand._id}>
                           <Link
                             to={`/brands/${brand._id}`}
                             className="block px-4 py-2 hover:bg-gray-100"
@@ -518,7 +518,7 @@ const Layout = () => {
                           {categories.map((category) => (
                             <li>
                               <a
-                                href="#"
+                                href={`/categories/${category._id}`}
                                 className="block px-4 py-2 hover:bg-gray-100"
                               >
                                 {category.name}
@@ -575,7 +575,7 @@ const Layout = () => {
                           {brands.map((brand) => (
                             <li>
                               <a
-                                href="#"
+                                href={`/brands/${brand._id}`}
                                 className="block px-4 py-2 hover:bg-gray-100"
                               >
                                 {brand.name}

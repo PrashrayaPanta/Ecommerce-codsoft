@@ -22,12 +22,9 @@ const Product = () => {
 
   const [quantity, setQuantity] = useState(1);
 
-
   console.log(quantity);
-  
 
   console.log(typeof quantity);
-  
 
   // console.log(qty);
 
@@ -226,8 +223,20 @@ const Product = () => {
             <div class="lg:w-2/12">
               <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div class="mb-4">
-                  <p class="text-3xl font-bold text-gray-900">$2,500</p>
-                  <p class="text-gray-500 line-through">$2,800</p>
+                  {product.discountedPrice > 0 ? (
+                    <>
+                      <p class="text-3xl font-bold text-gray-900">
+                        {product.discountedPrice}
+                      </p>
+                      <p class="text-gray-500 line-through">
+                        {product.initialPrice}
+                      </p>
+                    </>
+                  ) : (
+                    <p class="text-3xl font-bold text-gray-900">
+                      {product.initialPrice}
+                    </p>
+                  )}
                 </div>
 
                 <div class="mb-6">
@@ -237,7 +246,9 @@ const Product = () => {
                       type="number"
                       value={quantity}
                       class="w-full px-3 py-2 text-center border-0 focus:ring-0"
-                      onChange={({ target }) => setQuantity(parseInt((target.value)))}
+                      onChange={({ target }) =>
+                        setQuantity(parseInt(target.value))
+                      }
                     />
                   </div>
                 </div>
@@ -246,7 +257,11 @@ const Product = () => {
                   {/* <button class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition flex items-center justify-center">
                     <i class="fas fa-cart-plus mr-2"></i> Add to cart
                   </button> */}
-                  <CartBtn product={product} location={location} quantity={quantity} />
+                  <CartBtn
+                    product={product}
+                    location={location}
+                    quantity={quantity}
+                  />
                   <button class="w-full border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition flex items-center justify-center">
                     <i class="fas fa-heart mr-2 text-red-500"></i> Add to
                     wishlist

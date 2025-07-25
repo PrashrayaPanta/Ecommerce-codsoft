@@ -1,12 +1,10 @@
 import React from "react";
 import ProductCard from "../components/ui/ProductCard";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProductSection from "../components/ui/ProductSection";
 import http from "../http";
-
-
 
 const Category = () => {
   const [category, setCategory] = useState({});
@@ -30,13 +28,11 @@ const Category = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-
   console.log(products);
-  
 
   return (
     <div>
-        <ProductSection  products={products}/>
+      <ProductSection products={products} />
     </div>
   );
 };

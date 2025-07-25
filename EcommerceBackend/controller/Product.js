@@ -298,8 +298,8 @@ const productCtrl = {
       images,
       initialPrice,
       discountedPrice,
-      categoryName: category.name,
-      brandName: brand.name,
+      categoryName: category?.name,
+      brandName: brand?.name,
     });
 
     console.log(updateProduct);
