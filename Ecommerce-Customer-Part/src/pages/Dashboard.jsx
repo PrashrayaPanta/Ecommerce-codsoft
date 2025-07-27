@@ -1,5 +1,3 @@
-
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,9 +21,16 @@ import {
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import http from "../http";
+import { FromStorage } from "../library";
+import LoadingComponent from "../components/ui/LoadingComponent";
 
 export function Dashboard() {
+  const [orders, setOrders] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
   // const [open, setOpened] = useState(false);
 
   // const [openBrandItem, setopenBrandItem] = useState(false);
@@ -37,9 +42,41 @@ export function Dashboard() {
   // const handleClickedForBrandItem = () => {
   //   setopenBrandItem(!openBrandItem);
   // };
+
+  const token = FromStorage("customerPartToken");
+
+  useEffect(() => {
+    const getOrderLists = async () => {
+      try {
+        setLoading(true);
+
+        const { data } = await http.get("/api/orders", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setOrders(data.orders);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+
+      // console.log(data);
+
+      // console.log(response);
+    };
+
+    getOrderLists();
+  }, []);
+
+
+  console.log(orders);
+  
+  // console.log(orders);
+
   return (
     <>
-   
       <div className="flex justify-center p-2 items-center mb-3">
         <Tabs defaultValue="account" className="w-full max-w-2xl">
           <TabsList>
@@ -59,11 +96,19 @@ export function Dashboard() {
               <CardContent className="grid gap-6">
                 <div className="grid gap-3">
                   <label htmlFor="tabs-demo-new">New password</label>
-                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                  <input
+                    type="email"
+                    className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400"
+                    placeholder="Enter Your Email"
+                  />
                 </div>
                 <div className="grid gap-3">
                   <label htmlFor="tabs-demo-new">New password</label>
-                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                  <input
+                    type="email"
+                    className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400"
+                    placeholder="Enter Your Email"
+                  />
                 </div>
               </CardContent>
               <CardFooter>
@@ -83,11 +128,19 @@ export function Dashboard() {
               <CardContent className="grid gap-6">
                 <div className="grid gap-3">
                   <label htmlFor="tabs-demo-current">Current password</label>
-                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                  <input
+                    type="email"
+                    className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400"
+                    placeholder="Enter Your Email"
+                  />
                 </div>
                 <div className="grid gap-3">
                   <label htmlFor="tabs-demo-new">New password</label>
-                  <input type="email" className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400" placeholder="Enter Your Email" />
+                  <input
+                    type="email"
+                    className="border-2 focus:outline-none focus rounded-sm px-2 h-10 focus:border-blue-400 focus:invalid:border-red-400 required:border-pink-400"
+                    placeholder="Enter Your Email"
+                  />
                 </div>
               </CardContent>
               <CardFooter>
@@ -95,7 +148,6 @@ export function Dashboard() {
               </CardFooter>
             </Card>
           </TabsContent>
-
 
           <TabsContent value="order">
             {/* <Card>
@@ -120,30 +172,39 @@ export function Dashboard() {
                 <Button>Save password</Button>
               </CardFooter>
             </Card> */}
-            <table className="bg-red-500">
+            {loading ? (
+              <LoadingComponent />
+            ) : (
+              <table className="bg-red-500">
+                {orders.length > 0 ? (
+                  <>
+                    <tr>
+                      <th>Order ProductName</th>
+                      <th>Order Quantity</th>
+                      <th>Each Price</th>
+                      <th>Each Order Total Price: </th>
+                      <th>Status</th>
+                    </tr>
 
-                <tr>
-                    <td>Order ProductName</td>
-                    <td>Order Quantity</td>
-                    <td>Price</td>
-                    <td>Status</td>
-                </tr>
+                    {orders.map((order) => (
+                      <tr>
+                        <td>{order.items.map((item) => item.product_id.name)}</td>
+                        <td>{order.items.map((item) => item.quantity)}</td>
+                        <td>{order.items.map((item)=> item.product_id.initialPrice)}</td>
 
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-
-            </table>
-
+                        <td>{order.items.map((item) => item.quantity )} * {order.items.map((item)=> item.product_id.initialPrice)} </td>
+                        <td>{order.status}</td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  <h1>No Orders</h1>
+                )}
+              </table>
+            )}
           </TabsContent>
         </Tabs>
       </div>
-
-  
     </>
   );
 }

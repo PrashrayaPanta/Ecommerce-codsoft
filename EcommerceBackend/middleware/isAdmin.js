@@ -4,7 +4,7 @@ const isAdmin = async (req, res, next) => {
   try {
     const user = await User.findById(req.user_id);
 
-    console.log(typeof user.isAdmin)
+    console.log(typeof user.isAdmin);
 
     if (!user || !user.isAdmin) {
       return res.status(403).json({ message: "Access denied. Admins only." });

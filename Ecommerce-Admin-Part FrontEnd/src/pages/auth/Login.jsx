@@ -51,15 +51,13 @@ export const Login = () => {
       http
         .post("/api/users/login", data)
         .then(({ data }) => {
-
           console.log(data);
-          
+
           console.log(data.token);
 
           dispatch(setUser(data.user));
-          ToStorage("r130cmtoken", data.token, remember);
+          ToStorage("adminToken", data.token, remember);
           // toast.success("login sucess");
-
           navigate("/");
 
           // console.log(data.token);

@@ -16,14 +16,14 @@ const Layout = () => {
   useEffect(() => {
     setLoading(true);
     if (!user) {
-      const token = FromStorage("r130cmtoken");
+      const token = FromStorage("adminToken");
 
       if (token) {
         http
           .get("/api/users/profile")
           .then(({ data }) => dispatch(setUser(data.user)))
           .catch(() => {})
-          .finally(() => setLoading(false))
+          .finally(() => setLoading(false));
       } else {
         setLoading(false);
       }

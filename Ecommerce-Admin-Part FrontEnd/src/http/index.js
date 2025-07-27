@@ -13,7 +13,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    const token = FromStorage("r130cmtoken");
+    const token = FromStorage("adminToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
