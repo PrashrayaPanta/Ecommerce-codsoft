@@ -31,6 +31,10 @@ const List = () => {
     //   .finally(() => setLoading(false));
   }, []);
 
+
+  console.log(orders);
+  
+
   const handleUpdate = async (id, status) => {
     console.log(id);
     console.log(status);

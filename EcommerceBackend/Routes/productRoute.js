@@ -104,7 +104,7 @@ productRoute.get(
 );
 
 productRoute.get(
-  "/:nodejsProductImages/:filename",
+  "/nodejsProductImages/:filename",
   getImageDetailsHandlerForProduct
 );
 

@@ -62,22 +62,54 @@ const getImageDetailsHandlerForBrand = async (req, res) => {
 
 const getImageDetailsHandlerForProduct = async (req, res) => {
   try {
-    const { filename, nodejsProductImages } = req.params;
+    const { filename } = req.params;
 
-    console.log(nodejsProductImages);
+
+
+
+    // console.log(req.path);
+
+    // const twoArray = req.path.split("/");
+
+    // console.log(twoArray[1]);
+
+    // console.log(nodejsProductImages);
 
     // Combine folder name and filename to form the public ID
-    const publicID = `${nodejsProductImages}/${filename}`;
+    const publicID = `nodejsProductImages/${filename}`;
 
     // Fetch image details from Cloudinary  `
-    const result = await cloudinary.api.resource(publicID);
+    // const result = await cloudinary.api.resource(publicID);
 
-    if (!result || !result.secure_url) {
-      return res.status(404).json({ message: "Image not found in Cloudinary" });
-    }
+
+    
+    const result =  cloudinary.url(publicID, {
+      quality: "auto",
+      fetch_format: "auto",
+    });
+
+  
+
+    // if (!result | !result.secure_url) {
+    //   return res.status(404).json({ message: "Image not found in Cloudinary" });
+    // }
+
+    // console.log("succesfull get the image");
+
+
+    // console.log(result);
+
+    // console.log(result);
+
+    res.redirect(result)
+    
+
+    
 
     // Redirect the client to the image URL
-    res.redirect(result.secure_url);
+    // res.redirect(result.secure_url);
+
+
   } catch (error) {
     console.log(error);
   }
@@ -127,10 +159,8 @@ const deleteImageHandlerForProduct = async (req, res) => {
 
   console.log(filename);
 
-  const { nodejsProductImages } = req.params; // Get the folder name from request parameters
 
-  console.log(nodejsProductImages);
-
+  
   const publicIdFull = nodejsProductImages + "/" + filename;
 
   // console.log(publicIdFull);

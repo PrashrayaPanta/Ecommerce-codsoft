@@ -122,7 +122,9 @@ const productCtrl = {
     });
 
     // Delete product from database
-    await Product.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(id, {deleted:true});
+
+
 
     console.log("Successfully deleted");
 
@@ -243,6 +245,9 @@ const productCtrl = {
   //! Update the product
   updateCertainproduct: asyncHandler(async (req, res) => {
     console.log("I am inside the edit certain product controoler");
+
+    console.log(req.files);
+    
 
     const { id } = req.params;
 

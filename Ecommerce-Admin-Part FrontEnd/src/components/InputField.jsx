@@ -9,15 +9,15 @@ export const InputField = ({ type = "text", label, name, formik, as }) => {
     <div className="mb-3">
       <Form.Label htmlFor={name}>{label}</Form.Label>
 
-      {label === "Summary" ? null : (
+      {label === "discountedPrice" || label === "Summary" ? null : (
         <svg
           stroke="currentColor"
           fill="none"
-          stroke-width="2"
+          strokeWidth="2"
           viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="text-danger"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-danger mb-2"
           height="18"
           width="18"
           xmlns="http://www.w3.org/2000/svg"

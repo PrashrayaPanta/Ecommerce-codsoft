@@ -139,14 +139,14 @@ export const Create = () => {
 
                       <div className="mb-2">
                         <Form.Label htmlFor="categoryId">Category</Form.Label>
-                        {/* <svg
+                        <svg
                           stroke="currentColor"
                           fill="none"
                           stroke-width="2"
                           viewBox="0 0 24 24"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          class="text-danger"
+                          class="text-danger mb-2"
                           height="18"
                           width="18"
                           xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +154,7 @@ export const Create = () => {
                           <path d="M12 6v12"></path>
                           <path d="M17.196 9 6.804 15"></path>
                           <path d="m6.804 9 10.392 6"></path>
-                        </svg> */}
+                        </svg>
 
                         <Form.Select
                           name="categoryId"
@@ -186,14 +186,14 @@ export const Create = () => {
                       </div>
                       <div className="mb-2">
                         <Form.Label htmlFor="brandId">Brand</Form.Label>
-                        {/* <svg
+                        <svg
                           stroke="currentColor"
                           fill="none"
                           stroke-width="2"
                           viewBox="0 0 24 24"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          class="text-danger"
+                          class="text-danger mb-2"
                           height="18"
                           width="18"
                           xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ export const Create = () => {
                           <path d="M12 6v12"></path>
                           <path d="M17.196 9 6.804 15"></path>
                           <path d="m6.804 9 10.392 6"></path>
-                        </svg> */}
+                        </svg>
                         <Form.Select
                           name="brandId"
                           id="brandId"
@@ -237,7 +237,7 @@ export const Create = () => {
                           viewBox="0 0 24 24"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          class="text-danger"
+                          class="text-danger mb-2"
                           height="18"
                           width="18"
                           xmlns="http://www.w3.org/2000/svg"
@@ -298,7 +298,7 @@ export const Create = () => {
 
                       <InputField
                         type="text"
-                        label="discounted Percentage"
+                        label="discountedPrice"
                         name="discountedPrice"
                         formik={formik}
                       />

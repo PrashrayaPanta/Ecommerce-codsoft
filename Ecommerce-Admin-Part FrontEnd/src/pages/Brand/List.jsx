@@ -82,10 +82,12 @@ const List = () => {
                               <td>{brand.name}</td>
                               <td>{brand.slogan}</td>
                               <td>
-                                <img
-                                  src={imgURL(brand?.logo?.public_id)}
-                                  className="img-sm"
-                                />
+                                <a href={imgURL(brand?.logo?.public_id)}>
+                                  <img
+                                    src={imgURL(brand?.logo?.public_id)}
+                                    className="img-sm"
+                                  />
+                                </a>
                               </td>
 
                               <td>{dtFormat(brand.createdAt)}</td>

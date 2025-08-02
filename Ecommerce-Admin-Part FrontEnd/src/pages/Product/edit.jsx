@@ -74,14 +74,21 @@ export const Edit = () => {
       // console.log(form dat);
 
       for (let k in data) {
+        console.log(k);
+        
         if (k == "images") {
           for (let files of data[k]) {
+            console.log(files);
             fd.append(k, files);
           }
         } else {
           fd.append(k, data[k]);
         }
       }
+
+
+      console.log(data);
+      
 
       http
         .put(`/api/admin/products/${id}`, fd, {
@@ -125,6 +132,13 @@ export const Edit = () => {
     // console.log(staff);
   }, [product]);
 
+
+  // console.log(images);
+  
+
+
+  
+
   const handleDelete = (filename) => {
     console.log(filename);
 
@@ -137,7 +151,7 @@ export const Edit = () => {
       .finally(() => setLoading(false));
   };
 
-  console.log(product);
+  // console.log(product);
 
   // console.log(categories);
 

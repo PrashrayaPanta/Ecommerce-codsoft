@@ -11,12 +11,10 @@ const http = axios.create({
   },
 });
 
-
-
 // http.interceptors.request.use(
 //   (config) => {
 //     // console.log("Hello");
-//     const token = FromStorage("r130fronttoken");  
+//     const token = FromStorage("r130fronttoken");
 //     if (token) {
 //       // console.log(token);
 //       config.headers["Authorization"] = `Bearer ${token}`;
@@ -27,7 +25,6 @@ const http = axios.create({
 //     Promise.reject(error);
 //   }
 // );
-
 
 http.interceptors.response.use(
   (response) => {
@@ -41,7 +38,7 @@ http.interceptors.response.use(
 
   (error) => {
     console.log(error);
-    
+
     if ("message" in error.response.data) {
       toast.error(error.response.data.message);
     }

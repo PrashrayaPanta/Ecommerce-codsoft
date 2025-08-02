@@ -70,9 +70,8 @@ export function Dashboard() {
     getOrderLists();
   }, []);
 
-
   console.log(orders);
-  
+
   // console.log(orders);
 
   return (
@@ -174,33 +173,44 @@ export function Dashboard() {
             </Card> */}
             {loading ? (
               <LoadingComponent />
-            ) : (
-              <table className="bg-red-500">
-                {orders.length > 0 ? (
-                  <>
-                    <tr>
-                      <th>Order ProductName</th>
-                      <th>Order Quantity</th>
-                      <th>Each Price</th>
-                      <th>Each Order Total Price: </th>
-                      <th>Status</th>
-                    </tr>
-
-                    {orders.map((order) => (
-                      <tr>
-                        <td>{order.items.map((item) => item.product_id.name)}</td>
-                        <td>{order.items.map((item) => item.quantity)}</td>
-                        <td>{order.items.map((item)=> item.product_id.initialPrice)}</td>
-
-                        <td>{order.items.map((item) => item.quantity )} * {order.items.map((item)=> item.product_id.initialPrice)} </td>
-                        <td>{order.status}</td>
+            ) : orders.length > 0 ? (
+              <table className="w-full text-sm text-left text-gray-700 border border-gray-300">
+                <thead className="bg-gray-100 text-gray-700">
+                  <tr>
+                    <th className="px-4 py-2 border">Product Name</th>
+                    <th className="px-4 py-2 border">Quantity</th>
+                    <th className="px-4 py-2 border">Each Price</th>
+                    <th className="px-4 py-2 border">Total Price</th>
+                    <th className="px-4 py-2 border">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) =>
+                    order.items.map((item, idx) => (
+                      <tr
+                        key={`${order._id}-${idx}`}
+                        className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                      >
+                        <td className="px-4 py-2 border">
+                          {item.product_id.name}
+                        </td>
+                        <td className="px-4 py-2 border">{item.quantity}</td>
+                        <td className="px-4 py-2 border">
+                          Rs. {item.product_id.initialPrice}
+                        </td>
+                        <td className="px-4 py-2 border">
+                          Rs. {item.quantity * item.product_id.initialPrice}
+                        </td>
+                        <td className="px-4 py-2 border">{order.status}</td>
                       </tr>
-                    ))}
-                  </>
-                ) : (
-                  <h1>No Orders</h1>
-                )}
+                    ))
+                  )}
+                </tbody>
               </table>
+            ) : (
+              <div className="text-center text-gray-600 text-lg mt-6">
+                No Orders
+              </div>
             )}
           </TabsContent>
         </Tabs>

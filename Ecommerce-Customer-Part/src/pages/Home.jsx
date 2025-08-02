@@ -83,7 +83,7 @@ const Home = () => {
       {/* Use the Swiper component */}
       <SwiperComponent />
 
-      <h1 classNameName="font-bold text-lg">Latest Products</h1>
+      <h1 className="font-bold text-lg px-1">Latest Products</h1>
 
       {/* <SwiperComponentForLatestProducts/> */}
 

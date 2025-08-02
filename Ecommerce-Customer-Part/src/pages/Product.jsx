@@ -182,41 +182,39 @@ const Product = () => {
               <div class="h-px bg-gray-200 my-6"></div>
 
               <ul class="space-y-3 mb-6">
-                <li class="flex items-start">
+                {/* <li class="flex items-start">
                   <span class="text-alien-green mr-2 mt-1">✓</span>
                   <span>
                     Processor 8th Generation Intel Core i9-8950HK (6-Core, 12MB
                     Cache, Overclocking up to 5.0GHz)
                   </span>
-                </li>
+                </li> */}
                 <li class="flex items-start">
-                  <span class="text-alien-green mr-2 mt-1">✓</span>
                   <span>
-                    Memory 32GB DDR4-2666MHz, 2x16GB Ram Speed Gaming
-                    Performance
+                   {product.summary}
                   </span>
                 </li>
-                <li class="flex items-start">
+                {/* <li class="flex items-start">
                   <span class="text-alien-green mr-2 mt-1">✓</span>
                   <span>
                     Hard Drive 1TB SSD RAID 0 (2x 512GB PCIe NVME M.2 SSDs) +
                     1TB (+8GB SSHD) Hybrid Drive
                   </span>
-                </li>
-                <li class="flex items-start">
+                </li> */}
+                {/* <li class="flex items-start">
                   <span class="text-alien-green mr-2 mt-1">✓</span>
                   <span>
                     17.3" Full HD display 1920 x 1080 resolution boasts
                     impressive color and clarity. IPS technology for wide
                     viewing angles.
                   </span>
-                </li>
-                <li class="flex items-start">
+                </li> */}
+                {/* <li class="flex items-start">
                   <span class="text-alien-green mr-2 mt-1">✓</span>
                   <span>
                     Video Card NVIDIA® GeForce® RTX 2080 with 8GB GDDR6
                   </span>
-                </li>
+                </li> */}
               </ul>
             </div>
 
