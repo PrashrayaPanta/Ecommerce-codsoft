@@ -90,7 +90,7 @@ const Edit = () => {
   useEffect(() => {
     setLoading(true);
     http
-      .get("/api/cms/admin/brands")
+      .get("/api/admin/brands")
       .then(({ data }) => {
         setBrands(data.brands);
         return http.get(`/api/admin/brands/${id}`);

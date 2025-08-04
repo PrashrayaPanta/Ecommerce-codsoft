@@ -251,7 +251,7 @@ const productCtrl = {
 
     const { id } = req.params;
 
-    console.log(id);
+    // console.log(id);
 
     console.log(req.files);
 
@@ -263,6 +263,10 @@ const productCtrl = {
         };
       })
     );
+
+  
+  // console.log(images);
+  
 
     const {
       name,

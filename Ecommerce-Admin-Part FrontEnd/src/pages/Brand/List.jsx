@@ -15,7 +15,7 @@ const List = () => {
   useEffect(() => {
     setLoading(true);
     http
-      .get("/api/cms/admin/brands")
+      .get("/api/admin/brands")
       .then(({ data }) => setbrands(data.brands))
       .catch()
       .finally(() => setLoading(false));
@@ -28,7 +28,7 @@ const List = () => {
 
     http
       .delete(`/api/admin/brands/${id}`)
-      .then(() => http.get("/api/cms/admin/brands"))
+      .then(() => http.get("/api/admin/brands"))
       .then(({ data }) => setbrands(data.brands))
       .catch(() => {})
       .catch();

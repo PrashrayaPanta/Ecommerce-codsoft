@@ -61,7 +61,7 @@ productRoute.post(
 );
 
 productRoute.delete(
-  "/admin/products/:id/:nodejsProductImages/:filename",
+  "/admin/products/:id/nodejsProductImages/:filename",
   deleteImageHandlerForProduct
 );
 

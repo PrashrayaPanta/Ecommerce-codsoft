@@ -27,7 +27,7 @@ const getImageDetailsHandlerForBrand = async (req, res) => {
     // Combine folder name and filename to form the public ID
     const publicIDBrand = `${nodejsBrandImage}/${filename}`;
 
-    console.log("sdiofjiosdjnfkjnkjsdfnjkv");
+    // console.log("sdiofjiosdjnfkjnkjsdfnjkv");
 
     // const publicIdProduct = `${nodejsProductImages}/${filename1}`
 
@@ -90,9 +90,6 @@ const getImageDetailsHandlerForProduct = async (req, res) => {
 
   
 
-    // if (!result | !result.secure_url) {
-    //   return res.status(404).json({ message: "Image not found in Cloudinary" });
-    // }
 
     // console.log("succesfull get the image");
 
@@ -161,7 +158,10 @@ const deleteImageHandlerForProduct = async (req, res) => {
 
 
   
-  const publicIdFull = nodejsProductImages + "/" + filename;
+  const publicIdFull = `nodejsproductImages/${filename}`;
+
+  // console.log(publicIdFull);
+  
 
   // console.log(publicIdFull);
 
@@ -171,23 +171,37 @@ const deleteImageHandlerForProduct = async (req, res) => {
 
     const product = await Product.findById(id);
 
+
     console.log(product);
+    
+
+    // console.log(product);
 
     const Images = product?.images;
+
+    console.log(Images);
+    
 
     //filter on the basis of public_id match or not
     const filteredArrayImage = Images.filter(
       (image) => image.public_id !== publicIdFull
     );
 
-    product.images.map(async (image) => {
+
+    console.log(filteredArrayImage);
+    
+
+   
       // Update the Product document to remove the
-      await Product.findByIdAndUpdate(
+    const updatedProduct =   await Product.findByIdAndUpdate(
         id,
         { images: filteredArrayImage }, // set the images with filteredArrayImage
         { new: true }
       );
-    });
+
+    console.log(updatedProduct);
+      
+
 
     res.status(200).json({
       message: "Image deleted successfully and Product updated",

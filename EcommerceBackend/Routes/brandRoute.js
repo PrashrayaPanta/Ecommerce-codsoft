@@ -49,7 +49,7 @@ const upload = multer({
   },
 });
 
-brandRoute.get("/normaluser/brands/:id", brandCtrl.GetCertainBrand);
+brandRoute.get("/brands/:id", brandCtrl.GetCertainBrand);
 
 //! Admin
 
@@ -61,7 +61,7 @@ brandRoute.post(
   brandCtrl.createBrand
 );
 
-brandRoute.get("/cms/admin/brands", brandCtrl.getAllBrand);
+brandRoute.get("/admin/brands", brandCtrl.getAllBrand);
 
 brandRoute.delete(
   "/admin/brands/:id/:whichfolderinside/:filename",

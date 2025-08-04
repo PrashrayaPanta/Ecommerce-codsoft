@@ -108,7 +108,7 @@ export const Edit = () => {
       .get("/api/admin/categories")
       .then(({ data }) => {
         setCategories(data.Categories);
-        return http.get("/api/cms/admin/brands");
+        return http.get("/api/admin/brands");
       })
       .then(({ data }) => {
         setBrands(data.brands);

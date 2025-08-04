@@ -7,7 +7,7 @@ const ProductCard = ({ product, location }) => {
 
   console.log(location);
 
-  console.log(product.images[0].url);
+  console.log(product.images[0]?.url);
 
   return (
     <>
