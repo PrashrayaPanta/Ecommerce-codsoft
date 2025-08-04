@@ -14,20 +14,20 @@ const Brand = () => {
 
   const [products, setProducts] = useState([]);
 
-  const { id } = useParams();
+  const {slug } = useParams();
 
   useEffect(() => {
     setLoading(true);
     http
-      .get(`/api/normaluser/brands/${id}`)
+      .get(`/api/brands/${slug}`)
       .then(({ data }) => {
         setBrand(data.brand);
-        return http.get(`/api/brands/${id}/products`);
+        return http.get(`/api/brands/${slug}/products`);
       })
       .then(({ data }) => setProducts(data.products))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [slug]);
 
   console.log(products);
 

@@ -49,7 +49,7 @@ const upload = multer({
   },
 });
 
-brandRoute.get("/brands/:id", brandCtrl.GetCertainBrand);
+
 
 //! Admin
 
@@ -61,21 +61,6 @@ brandRoute.post(
   brandCtrl.createBrand
 );
 
-brandRoute.get("/admin/brands", brandCtrl.getAllBrand);
-
-brandRoute.delete(
-  "/admin/brands/:id/:whichfolderinside/:filename",
-  isAuthenticated,
-  isAdmin,
-  deleteOnlyImageHandlerForBrand
-);
-
-productRoute.get("/brands/:id/products", productCtrl.getAllProductByBrandId);
-
-brandRoute.get(
-  "/brands/:nodejsBrandImage/:filename",
-  getImageDetailsHandlerForBrand
-);
 
 brandRoute.get(
   "/admin/brands/:id",
@@ -99,8 +84,31 @@ brandRoute.put(
   brandCtrl.EditCertainBrand
 );
 
-//!FrontEnd Part
 
+
+brandRoute.delete(
+  "/admin/brands/:id/:whichfolderinside/:filename",
+  isAuthenticated,
+  isAdmin,
+  deleteOnlyImageHandlerForBrand
+);
+
+
+brandRoute.get("/brands/:slug", brandCtrl.GetCertainBrand);
+
+
+brandRoute.get("/admin/brands", brandCtrl.getAllBrand);
+
+productRoute.get("/brands/:slug/products", productCtrl.getAllProductByBrandId);
+
+brandRoute.get(
+  "/brands/:nodejsBrandImage/:filename",
+  getImageDetailsHandlerForBrand
+);
+
+
+
+//!FrontEnd Part
 brandRoute.get("/brands", brandCtrl.getAllBrand);
 
 module.exports = brandRoute;

@@ -13,20 +13,20 @@ const Category = () => {
 
   const [products, setProducts] = useState([]);
 
-  const { id } = useParams();
+  const { slug } = useParams();
 
   useEffect(() => {
     setLoading(true);
     http
-      .get(`/api/categories/${id}`)
+      .get(`/api/categories/${slug}`)
       .then(({ data }) => {
         setCategory(data.category);
-        return http.get(`/api/categories/${id}/products`);
+        return http.get(`/api/categories/${slug}/products`);
       })
       .then(({ data }) => setProducts(data.products))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [slug]);
 
   console.log(products);
 

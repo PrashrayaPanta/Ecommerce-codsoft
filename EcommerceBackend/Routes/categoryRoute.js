@@ -57,12 +57,12 @@ categoryRoute.get("/categories",  categoryCtrl.getAllCategory);
 
 
 
-categoryRoute.get("/categories/:id",  categoryCtrl.getCertainCategory);
+categoryRoute.get("/categories/:slug",  categoryCtrl.getCertainCategory);
 
 
 
 
-productRoute.get("/categories/:id/products", productCtrl.getAllProductByCategoryId)
+productRoute.get("/categories/:slug/products", productCtrl.getAllProductByCategoryId)
 
 
 

@@ -347,7 +347,7 @@ const Layout = () => {
                       {categories.map((category) => (
                         <li>
                           <a
-                            href={`/categories/${category._id}`}
+                            href={`/categories/${category.slug}`}
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
                             {category.name}
@@ -389,7 +389,7 @@ const Layout = () => {
                       {brands.map((brand) => (
                         <li key={brand._id}>
                           <Link
-                            to={`/brands/${brand._id}`}
+                            to={`/brands/${brand.slug}`}
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
                             {brand.name}

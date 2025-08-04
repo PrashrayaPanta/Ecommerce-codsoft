@@ -192,14 +192,14 @@ export function Dashboard() {
                         className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                       >
                         <td className="px-4 py-2 border">
-                          {item.product_id.name}
+                          {item?.product_id?.name}
                         </td>
                         <td className="px-4 py-2 border">{item.quantity}</td>
                         <td className="px-4 py-2 border">
-                          Rs. {item.product_id.initialPrice}
+                          Rs. {item.product_id?.initialPrice}
                         </td>
                         <td className="px-4 py-2 border">
-                          Rs. {item.quantity * item.product_id.initialPrice}
+                          Rs. {item.quantity * item.product_id?.initialPrice}
                         </td>
                         <td className="px-4 py-2 border">{order.status}</td>
                       </tr>

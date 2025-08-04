@@ -53,14 +53,14 @@ const categoryCtrl = {
   getCertainCategory: asyncHandler(async (req, res) => {
     console.log("I am inside certain category controller");
 
-    const { id } = req.params;
+    const { slug } = req.params;
 
     // Validate the `id`
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid category ID" });
-    }
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //   return res.status(400).json({ message: "Invalid category ID" });
+    // }
 
-    const category = await Category.findById(id);
+    const category = await Category.find({slug});
 
     if (!category) {
       return res.status(404).json({ message: "Category not found" });

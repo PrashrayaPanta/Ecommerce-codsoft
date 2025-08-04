@@ -139,11 +139,18 @@ const brandCtrl = {
     console.log("I ma inside Brand By Id");
     console.log("Hello I am inside get certain Brand");
 
-    const { id } = req.params;
+    const { slug } = req.params;
 
-    console.log(id);
+    // console.log(slug);
 
-    const brand = await Brand.findById(id);
+    console.log(slug);
+    
+
+    // console.log(typeof id);
+
+    // const brand = await Brand.findById(slug);
+
+    const brand = await Brand.find({slug});
 
     console.log(brand);
 

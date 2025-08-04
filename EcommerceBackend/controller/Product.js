@@ -207,9 +207,13 @@ const productCtrl = {
   getAllProductByCategoryId: asyncHandler(async (req, res) => {
     console.log("I am inside the get all product by category Id");
 
-    const { id } = req.params;
+    // const { id } = req.params;
 
-    const products = await Product.find({ categoryId: id });
+
+
+    const {slug} = req.params;
+
+    const products = await Product.find({ categoryName:slug });
 
     console.log(products);
 
@@ -217,15 +221,18 @@ const productCtrl = {
   }),
 
   getAllProductByBrandId: asyncHandler(async (req, res) => {
-    const { id } = req.params;
 
-    console.log(id);
+    console.log("I am inside the get all product by brand Id");
+    
+    // const { id } = req.params;
+
+    // console.log(id);
 
     const { slug } = req.params;
 
     console.log(slug);
 
-    const products = await Product.find({ brandId: id });
+    const products = await Product.find({  brandName:slug });
 
     console.log(products);
 
