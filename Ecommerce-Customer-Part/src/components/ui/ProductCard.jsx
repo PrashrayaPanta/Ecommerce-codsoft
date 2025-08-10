@@ -13,7 +13,7 @@ const ProductCard = ({ product, location }) => {
     <>
       <div className="">
         <Link
-          class=" shadow-md rounded-md text-center p-4 bg-red-500"
+          class=" shadow-md rounded-md text-center p-4"
           to={`/product/${product._id}`}
         >
           <img
@@ -31,13 +31,13 @@ const ProductCard = ({ product, location }) => {
 
           {product?.discountedPrice > 0 ? (
             <>
-              <p class="line-through  font-semibold text-lg">
+              <p class="line-through  font-semibold text-lg text-black">
                 ${product.initialPrice}
               </p>
-              <p class="font-bold text-lg ">${product.discountedPrice}</p>
+              <p class="font-bold text-lg text-black ">${product.discountedPrice}</p>
             </>
           ) : (
-            <p class=" font-bold text-lg mt-5">${product.initialPrice}</p>
+            <p class=" font-bold text-lg mt-5 text-black">${product.initialPrice}</p>
           )}
 
           <div

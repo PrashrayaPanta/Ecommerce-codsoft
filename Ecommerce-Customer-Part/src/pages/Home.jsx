@@ -8,6 +8,7 @@ import SwiperComponent from "../components/ui/swiper";
 import ProductCard from "../components/ui/ProductCard";
 import http from "../http";
 import LoadingComponent from "../components/ui/LoadingComponent";
+import ProductSection from "../components/ui/ProductSection";
 
 const Home = () => {
 
@@ -20,14 +21,8 @@ const Home = () => {
   const [Latestproducts, setLatestProducts] = useState([]);
 
 
-  // const 
-
   const [Loading, setLoading] = useState(false);
 
-  console.log("I am home page");
-
-  console.log("Hello K xa");
-  // const latestProducts = [
   //   {
   //     name: "Sony Alpha DSLR Camera",
   //     initialPrice: 1000,
@@ -83,25 +78,13 @@ const Home = () => {
       {/* Use the Swiper component */}
       <SwiperComponent />
 
-      <h1 className="font-bold text-lg px-1">Latest Products</h1>
+      <h1 className="font-bold text-lg px-3">Latest Products</h1>
 
       {/* <SwiperComponentForLatestProducts/> */}
 
-      {Loading ? (
-        <LoadingComponent />
-      ) : (
-        <div className="grid  grid-cols-2 md:grid-cols-4 gap-6 p-4 bg-blue-400">
-          {/* <!-- Sony Camera Card --> */}
+      <ProductSection title="Latest Products" products={Latestproducts} />
 
-          {Latestproducts.length > 0 ? (
-            <>
-              {Latestproducts.map((product, index) => (
-                <ProductCard product={product} key={index} location={location} />
-              ))}
-            </>
-          ) : (
-            <h1>Data Not Found</h1>
-          )}
+    
 
           {/* <div className="bg-white shadow-md rounded-md text-center p-4">
           <img
@@ -235,8 +218,7 @@ const Home = () => {
             Add to cart
           </button>
         </div> */}
-        </div>
-      )}
+      
     </div>
   );
 };

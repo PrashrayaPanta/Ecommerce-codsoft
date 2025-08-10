@@ -5,8 +5,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductSection from "../components/ui/ProductSection";
 import http from "../http";
+import LoadingComponent from "../components/ui/LoadingComponent";
 
-const Category = () => {
+
+
+ const Categories = () => {
   const [category, setCategory] = useState({});
 
   const [loading, setLoading] = useState(false);
@@ -28,13 +31,45 @@ const Category = () => {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  console.log(products);
+
+  useEffect(() =>{
+
+    const getCategoryProducts = async () => {
+      try {
+        setLoading(true);
+        const { data } = await http.get(`/api/categories/${slug}/products`);
+        setProducts(data.products);
+      } catch (error) {
+        console.error("Error fetching category products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getCategoryProducts();
+
+
+  }, [slug]);
 
   return (
-    <div>
-      <ProductSection products={products} />
-    </div>
+    <>
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          {products.length > 0 ? (
+            <ProductSection
+              title={`Category of`}
+              products={products}
+            />
+          ) : (
+            <h1 className="text-center">Data Not available</h1>
+          )}
+        </>
+      )}
+    </>
   );
 };
 
-export default Category;
+
+export default Categories;

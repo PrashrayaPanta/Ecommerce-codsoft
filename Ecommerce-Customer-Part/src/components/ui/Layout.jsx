@@ -315,6 +315,7 @@ const Layout = () => {
                 />
                 <button className="absolute right-2 top-2 cursor-pointer">
                   <i className="fas fa-search"></i>
+                  <span class="sr-only">Search Button</span>
                 </button>
               </form>
 
@@ -482,6 +483,7 @@ const Layout = () => {
                 <line x1="4" y1="12" x2="20" y2="12" />
                 <line x1="4" y1="18" x2="20" y2="18" />
               </svg>
+              <span class="sr-only">Hamberg Menu</span>
             </a>
           </SheetTrigger>
           <SheetContent>

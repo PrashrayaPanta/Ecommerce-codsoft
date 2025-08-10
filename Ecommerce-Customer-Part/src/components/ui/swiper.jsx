@@ -8,6 +8,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
+
+import Slider1 from "../../assets/slider-1.jpg";
+
+import Slider2 from "../../assets/slider-2.jpg";
+
+import Slider3 from "../../assets/slider-3.jpg";
+
+
 function SwiperComponent() {
   return (
     <Swiper
@@ -22,13 +30,13 @@ function SwiperComponent() {
       modules={[Navigation, Autoplay]} // Include Navigation and Autoplay modules
     >
       <SwiperSlide>
-        <img src="../../../slider-1.jpg" alt="Slide 1" className="w-full h-auto" />
+        <img src={Slider1} alt="Slide 1" className="w-full h-auto" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="../../../slider-2.jpg" alt="Slide 2" className="w-full h-auto" />
+        <img src={Slider2} alt="Slide 2" className="w-full h-auto" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="../../../slider-3.jpg" alt="Slide 3" className="w-full h-auto" />
+        <img src={Slider3} alt="Slide 3" className="w-full h-auto" />
       </SwiperSlide>
     </Swiper>
   );

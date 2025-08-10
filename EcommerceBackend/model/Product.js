@@ -100,6 +100,18 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
 
+    categorySlug:{
+
+        type: String,
+        required: true,
+    },
+
+    brandSlug:{
+
+      type: String,
+      required:true
+    },
+
     reviews: [
       {
         comment: {

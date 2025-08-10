@@ -130,7 +130,7 @@ const Product = () => {
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
           <div class="flex flex-col lg:flex-row gap-8">
             {/* Img part */}
-            <div class="lg:w-5/12 bg-red-400">
+            <div class="lg:w-5/12">
               <div class="mb-4 border-2 border-gray-200 rounded-xl overflow-hidden">
                 {/* <img src="../image-1.jpg" alt="" srcset="" /> */}
 

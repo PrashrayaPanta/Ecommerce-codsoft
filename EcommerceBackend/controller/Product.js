@@ -90,6 +90,8 @@ const productCtrl = {
       brandId,
       categoryName: category?.name,
       brandName: brand?.name,
+      categorySlug: category?.slug,
+      brandSlug: brand?.slug,
     });
 
     // console.log(product);
@@ -213,7 +215,7 @@ const productCtrl = {
 
     const {slug} = req.params;
 
-    const products = await Product.find({ categoryName:slug });
+    const products = await Product.find({ categorySlug:slug });
 
     console.log(products);
 
